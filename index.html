@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Maksim Smirnov — Product Builder</title>
+  <meta name="description" content="I find gaps in markets and build products that fill them.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --g0: #ffffff;
+      --g1: #f9f9f8;
+      --g2: #f0f0ee;
+      --g3: #e2e2df;
+      --g4: #b0b0aa;
+      --g5: #6e6e68;
+      --g6: #2a2a27;
+      --g7: #111110;
+
+      --green:      #2d6a4f;
+      --green-mid:  #40916c;
+      --green-pale: #d8f3dc;
+      --green-bg:   #f0faf3;
+
+      --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+      --ease-out:    cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--g0);
+      color: var(--g7);
+      font-size: 15px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      height: 52px;
+      display: flex;
+      align-items: center;
+    }
+
+    nav::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(255,255,255,0.75);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border-bottom: 1px solid var(--g3);
+      z-index: -1;
+    }
+
+    .nav-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 32px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      color: var(--green);
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 13px;
+      color: var(--g5);
+      text-decoration: none;
+      transition: color 0.2s;
+      letter-spacing: 0.01em;
+    }
+
+    .nav-links a:hover { color: var(--g7); }
+
+    /* ── LAYOUT ── */
+    .wrap {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 140px 0 100px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-bg-blob {
+      position: absolute;
+      top: -120px;
+      right: -200px;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(ellipse at center, rgba(64,145,108,0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--green-mid);
+      margin-bottom: 32px;
+      opacity: 0;
+      transform: translateY(8px);
+      animation: fadeUp 0.6s var(--ease-out) 0.1s forwards;
+    }
+
+    .hero-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--green-mid);
+      animation: pulse 2.4s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.8); }
+    }
+
+    .hero h1 {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: clamp(44px, 7vw, 80px);
+      line-height: 1.05;
+      color: var(--g7);
+      letter-spacing: -0.02em;
+      max-width: 680px;
+      margin-bottom: 28px;
+      opacity: 0;
+      transform: translateY(12px);
+      animation: fadeUp 0.7s var(--ease-out) 0.2s forwards;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--green);
+    }
+
+    .hero-sub {
+      font-size: 17px;
+      color: var(--g5);
+      max-width: 480px;
+      line-height: 1.65;
+      margin-bottom: 44px;
+      opacity: 0;
+      transform: translateY(12px);
+      animation: fadeUp 0.7s var(--ease-out) 0.35s forwards;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      flex-wrap: wrap;
+      opacity: 0;
+      transform: translateY(12px);
+      animation: fadeUp 0.7s var(--ease-out) 0.5s forwards;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s var(--ease-out);
+    }
+
+    .btn-dark {
+      background: var(--g7);
+      color: var(--g0);
+      padding: 11px 22px;
+      border-radius: 8px;
+      border: none;
+    }
+
+    .btn-dark:hover {
+      background: var(--g6);
+      transform: translateY(-1px);
+    }
+
+    .btn-dark:active { transform: translateY(0) scale(0.98); }
+
+    .btn-ghost {
+      color: var(--g5);
+      padding: 11px 0;
+      border: none;
+      background: none;
+    }
+
+    .btn-ghost:hover { color: var(--g7); }
+
+    .btn-arrow {
+      display: inline-block;
+      transition: transform 0.2s var(--ease-spring);
+    }
+
+    .btn-dark:hover .btn-arrow { transform: translate(2px, -2px); }
+    .btn-ghost:hover .btn-arrow { transform: translateX(3px); }
+
+    /* ── STATS ── */
+    .stats {
+      display: flex;
+      gap: 0;
+      border-top: 1px solid var(--g3);
+      border-bottom: 1px solid var(--g3);
+      margin-top: 72px;
+      opacity: 0;
+      animation: fadeUp 0.6s var(--ease-out) 0.65s forwards;
+    }
+
+    .stat {
+      flex: 1;
+      padding: 28px 0;
+      position: relative;
+    }
+
+    .stat + .stat {
+      padding-left: 32px;
+      border-left: 1px solid var(--g3);
+      margin-left: 32px;
+    }
+
+    .stat-n {
+      font-family: 'Instrument Serif', serif;
+      font-size: 36px;
+      color: var(--g7);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .stat-l {
+      font-size: 12px;
+      color: var(--g4);
+      letter-spacing: 0.04em;
+    }
+
+    /* ── SECTION ── */
+    .section { padding: 96px 0; }
+    .section + .section { border-top: 1px solid var(--g2); }
+
+    .section-eyebrow {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--green-mid);
+      margin-bottom: 20px;
+    }
+
+    .section-title {
+      font-family: 'Instrument Serif', serif;
+      font-size: clamp(30px, 4vw, 46px);
+      color: var(--g7);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 14px;
+    }
+
+    .section-body {
+      font-size: 16px;
+      color: var(--g5);
+      max-width: 500px;
+      line-height: 1.7;
+    }
+
+    /* ── PROJECTS ── */
+    .projects { margin-top: 56px; display: grid; gap: 2px; }
+
+    .project {
+      padding: 40px 0;
+      border-top: 1px solid var(--g3);
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 32px;
+      align-items: start;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .project:last-child { border-bottom: 1px solid var(--g3); }
+
+    .project:hover .project-title { color: var(--green); }
+    .project:hover .project-arrow { transform: translate(4px, -4px); opacity: 1; }
+
+    .project-tag {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--green-mid);
+      background: var(--green-bg);
+      padding: 4px 10px;
+      border-radius: 100px;
+      display: inline-block;
+      margin-bottom: 14px;
+    }
+
+    .project-title {
+      font-family: 'Instrument Serif', serif;
+      font-size: 28px;
+      color: var(--g7);
+      letter-spacing: -0.01em;
+      margin-bottom: 10px;
+      transition: color 0.2s;
+      line-height: 1.2;
+    }
+
+    .project-desc {
+      font-size: 14px;
+      color: var(--g5);
+      line-height: 1.65;
+      max-width: 540px;
+    }
+
+    .project-url {
+      font-size: 12px;
+      color: var(--g4);
+      margin-top: 16px;
+      letter-spacing: 0.01em;
+    }
+
+    .project-arrow {
+      font-size: 20px;
+      color: var(--g4);
+      opacity: 0;
+      transition: transform 0.25s var(--ease-spring), opacity 0.2s;
+      padding-top: 4px;
+      flex-shrink: 0;
+    }
+
+    /* ── APPROACH ── */
+    .approach-grid {
+      margin-top: 56px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+    }
+
+    .approach-item {
+      padding: 36px 0 36px 0;
+      border-top: 1px solid var(--g3);
+    }
+
+    .approach-item:nth-child(odd) { padding-right: 40px; }
+    .approach-item:nth-child(even) { padding-left: 40px; border-left: 1px solid var(--g3); }
+
+    .approach-num {
+      font-family: 'Instrument Serif', serif;
+      font-size: 13px;
+      color: var(--g4);
+      margin-bottom: 14px;
+      font-style: italic;
+    }
+
+    .approach-title {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--g7);
+      margin-bottom: 8px;
+    }
+
+    .approach-text {
+      font-size: 14px;
+      color: var(--g5);
+      line-height: 1.65;
+    }
+
+    /* ── LANGUAGES ── */
+    .langs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 40px;
+    }
+
+    .lang {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 16px;
+      border: 1px solid var(--g3);
+      border-radius: 8px;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .lang:hover { border-color: var(--green-pale); background: var(--green-bg); }
+
+    .lang-name { font-size: 13px; color: var(--g7); font-weight: 500; }
+    .lang-level { font-size: 12px; color: var(--green-mid); }
+
+    /* ── CONTACT ── */
+    .contact-box {
+      background: var(--g7);
+      border-radius: 16px;
+      padding: 64px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .contact-box::before {
+      content: '';
+      position: absolute;
+      top: -100px; right: -100px;
+      width: 400px; height: 400px;
+      background: radial-gradient(ellipse at center, rgba(64,145,108,0.15) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .contact-box .section-eyebrow { color: rgba(255,255,255,0.4); }
+    .contact-box .section-title { color: var(--g0); margin-bottom: 10px; }
+    .contact-box .section-body { color: rgba(255,255,255,0.5); margin-bottom: 36px; }
+
+    .contact-links {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .c-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      padding: 10px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: all 0.2s;
+      letter-spacing: 0.01em;
+    }
+
+    .c-btn-green {
+      background: var(--green-mid);
+      color: #fff;
+    }
+    .c-btn-green:hover { background: #52b788; transform: translateY(-1px); }
+
+    .c-btn-outline {
+      border: 1px solid rgba(255,255,255,0.15);
+      color: rgba(255,255,255,0.7);
+    }
+    .c-btn-outline:hover {
+      border-color: rgba(255,255,255,0.35);
+      color: #fff;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--g2);
+      padding: 28px 0;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .footer-left { font-size: 13px; color: var(--g4); }
+    .footer-left strong { color: var(--g6); font-weight: 500; }
+    .footer-right { font-size: 12px; color: var(--g4); }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
+    }
+    .reveal.in { opacity: 1; transform: none; }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: none; }
+    }
+
+    /* ── CURSOR DOT ── */
+    .cursor-dot {
+      position: fixed;
+      width: 8px;
+      height: 8px;
+      background: var(--green-mid);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transition: transform 0.15s var(--ease-spring), opacity 0.3s;
+      transform: translate(-50%, -50%);
+      opacity: 0;
+    }
+
+    body:hover .cursor-dot { opacity: 1; }
+
+    /* ── MOBILE ── */
+    @media (max-width: 640px) {
+      .wrap { padding: 0 20px; }
+      .nav-inner { padding: 0 20px; }
+      .nav-links { display: none; }
+      .hero { padding: 100px 0 64px; }
+      .hero h1 { font-size: 40px; }
+      .stats { flex-direction: column; gap: 0; }
+      .stat + .stat { border-left: none; border-top: 1px solid var(--g3); margin-left: 0; padding-left: 0; }
+      .approach-grid { grid-template-columns: 1fr; }
+      .approach-item:nth-child(even) { padding-left: 0; border-left: none; }
+      .project { grid-template-columns: 1fr; }
+      .project-arrow { display: none; }
+      .contact-box { padding: 36px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="cursor-dot" id="dot"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">FindlyTen</a>
+    <ul class="nav-links">
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg-blob"></div>
+  <div class="wrap">
+    <div class="hero-tag">
+      <div class="hero-dot"></div>
+      Product Builder · Moldova
+    </div>
+    <h1>I find gaps.<br>I build <em>products.</em></h1>
+    <p class="hero-sub">
+      Maksim Smirnov. I spot underserved markets, turn ideas into working products, and grow them to real users — no traditional development required.
+    </p>
+    <div class="hero-cta">
+      <a href="#projects" class="btn btn-dark">
+        See my work
+        <span class="btn-arrow">↗</span>
+      </a>
+      <a href="#contact" class="btn btn-ghost">
+        Get in touch
+        <span class="btn-arrow">→</span>
+      </a>
+    </div>
+
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-n">2</div>
+        <div class="stat-l">Products launched</div>
+      </div>
+      <div class="stat">
+        <div class="stat-n">4</div>
+        <div class="stat-l">Languages spoken</div>
+      </div>
+      <div class="stat">
+        <div class="stat-n">100%</div>
+        <div class="stat-l">AI-powered builds</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="section" id="projects">
+  <div class="wrap">
+    <p class="section-eyebrow reveal">Work</p>
+    <h2 class="section-title reveal">Products I've built</h2>
+    <p class="section-body reveal">Both started as an observation — something missing in Moldova's digital space. I built them, launched them, and keep growing them.</p>
+
+    <div class="projects">
+      <a class="project reveal" href="https://van7-moldova.com/" target="_blank" rel="noopener">
+        <div>
+          <span class="project-tag">Digital Agency</span>
+          <h3 class="project-title">VAN7 Moldova</h3>
+          <p class="project-desc">Moldova's digital agency built to help local brands compete online. Founded to bridge the gap between Moldovan businesses and modern digital marketing — from brand identity to full digital presence.</p>
+          <p class="project-url">van7-moldova.com ↗</p>
+        </div>
+        <span class="project-arrow">↗</span>
+      </a>
+
+      <a class="project reveal" href="https://freelance-moldova.com/" target="_blank" rel="noopener">
+        <div>
+          <span class="project-tag">Marketplace · Free Platform</span>
+          <h3 class="project-title">Freelance Moldova</h3>
+          <p class="project-desc">The first free freelance marketplace built specifically for Moldova — connecting local talent with clients. Already live with real registered users, built without a single line of traditional code.</p>
+          <p class="project-url">freelance-moldova.com ↗</p>
+        </div>
+        <span class="project-arrow">↗</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="section" id="about">
+  <div class="wrap">
+    <p class="section-eyebrow reveal">Approach</p>
+    <h2 class="section-title reveal">How I think</h2>
+    <p class="section-body reveal">A medical student who builds internet products on the side. My edge isn't code — it's spotting a real problem and moving fast.</p>
+
+    <div class="approach-grid">
+      <div class="approach-item reveal">
+        <div class="approach-num">01</div>
+        <div class="approach-title">Find the gap</div>
+        <p class="approach-text">I look for markets where the obvious solution doesn't exist yet. Moldova's freelance market had no dedicated platform — so I built one.</p>
+      </div>
+      <div class="approach-item reveal">
+        <div class="approach-num">02</div>
+        <div class="approach-title">Ship fast with AI</div>
+        <p class="approach-text">I use modern AI tools to build and iterate at speed. Product first, perfection later. No waiting on developers.</p>
+      </div>
+      <div class="approach-item reveal">
+        <div class="approach-num">03</div>
+        <div class="approach-title">Grow to real users</div>
+        <p class="approach-text">Building is the easy part. I focus on distribution, community, and making products people actually return to.</p>
+      </div>
+      <div class="approach-item reveal">
+        <div class="approach-num">04</div>
+        <div class="approach-title">Think monetisation early</div>
+        <p class="approach-text">Every product I build has a clear path to revenue — even if it launches free, sustainability is part of the design.</p>
+      </div>
+    </div>
+
+    <div style="margin-top: 72px;" class="reveal">
+      <p class="section-eyebrow">Languages</p>
+      <div class="langs">
+        <div class="lang"><span>🇺🇦</span><span class="lang-name">Ukrainian</span><span class="lang-level">Native</span></div>
+        <div class="lang"><span>🇷🇺</span><span class="lang-name">Russian</span><span class="lang-level">Native</span></div>
+        <div class="lang"><span>🇬🇧</span><span class="lang-name">English</span><span class="lang-level">Fluent</span></div>
+        <div class="lang"><span>🇷🇴</span><span class="lang-name">Romanian</span><span class="lang-level">Conversational</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="section" id="contact">
+  <div class="wrap">
+    <div class="contact-box reveal">
+      <p class="section-eyebrow">Contact</p>
+      <h2 class="section-title">Let's work together</h2>
+      <p class="section-body">Looking for a product-minded collaborator, a PM, or someone to launch something new in Eastern Europe? Open to conversations.</p>
+      <div class="contact-links">
+        <a href="mailto:hello@findlyten.com" class="c-btn c-btn-green">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="14" height="10" rx="2"/><path d="M1 5l7 5 7-5"/></svg>
+          Email me
+        </a>
+        <a href="https://t.me/findlyten" target="_blank" rel="noopener" class="c-btn c-btn-outline">Telegram</a>
+        <a href="https://github.com/FindlyTen" target="_blank" rel="noopener" class="c-btn c-btn-outline">GitHub</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="footer-inner">
+      <p class="footer-left"><strong>Maksim Smirnov</strong> · FindlyTen</p>
+      <p class="footer-right">Moldova · Open to remote</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // cursor dot
+  const dot = document.getElementById('dot');
+  let mx = 0, my = 0, cx = 0, cy = 0;
+  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+  (function loop() {
+    cx += (mx - cx) * 0.18;
+    cy += (my - cy) * 0.18;
+    dot.style.left = cx + 'px';
+    dot.style.top = cy + 'px';
+    requestAnimationFrame(loop);
+  })();
+
+  // scroll reveal with stagger
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('in'), i * 80);
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  // project hover — show arrow smoothly
+  document.querySelectorAll('.project').forEach(p => {
+    p.addEventListener('mouseenter', () => {
+      p.querySelector('.project-arrow').style.opacity = '1';
+    });
+    p.addEventListener('mouseleave', () => {
+      p.querySelector('.project-arrow').style.opacity = '0';
+    });
+  });
+</script>
+
+</body>
+</html>
