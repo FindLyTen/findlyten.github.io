@@ -280,31 +280,7 @@
       object-fit: cover;
     }
 
-    .photo-card {
-      position: absolute;
-      bottom: 16px;
-      left: 16px;
-      right: 16px;
-      background: rgba(255,255,255,0.96);
-      backdrop-filter: blur(12px);
-      border-radius: 10px;
-      padding: 14px 16px;
-      border: 1px solid var(--g2);
-    }
 
-    .photo-card-name {
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--g7);
-      letter-spacing: -0.02em;
-      margin-bottom: 2px;
-    }
-
-    .photo-card-role {
-      font-size: 12px;
-      color: var(--g5);
-      font-weight: 400;
-    }
 
     /* ── STATS ── */
     .stats {
@@ -366,6 +342,21 @@
       line-height: 1.72;
     }
 
+
+    .proj-type-inline {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--green-d);
+      background: var(--green-pale);
+      padding: 3px 9px;
+      border-radius: 5px;
+      vertical-align: middle;
+      margin-left: 10px;
+      position: relative;
+      top: -3px;
+    }
     /* ── PROJECTS ── */
     #projects {
       padding: 100px 0;
@@ -770,10 +761,7 @@
           </svg>
           <span>Add your photo here</span>
         </div>
-        <div class="photo-card">
-          <div class="photo-card-name">Maxim Smirnov</div>
-          <div class="photo-card-role">Product Builder · Moldova 🇲🇩</div>
-        </div>
+
       </div>
     </div>
   </div>
@@ -799,13 +787,12 @@
   <div class="wrap">
     <div class="projects-header">
       <h2 class="s-title reveal">Products I've built</h2>
-      <p class="s-lead reveal">Both started as a simple observation — something was missing in Moldova's digital space. I spotted it, built it, launched it.</p>
+      <p class="s-lead reveal">I identify gaps in the market and build products to fill them. Here's what I've shipped so far.</p>
     </div>
 
     <div class="projects-grid">
       <a class="proj-card reveal" href="https://van7-moldova.com/" target="_blank" rel="noopener">
-        <div class="proj-type">Digital Agency</div>
-        <h3 class="proj-title">VAN7 Moldova</h3>
+        <h3 class="proj-title">VAN7 Moldova <span class="proj-type-inline">Digital Agency</span></h3>
         <p class="proj-desc">Moldova's digital agency helping local brands compete online. From brand identity to full digital presence — I founded VAN7 to bridge the gap between Moldovan businesses and modern marketing.</p>
         <div class="proj-foot">
           <span class="proj-url">van7-moldova.com</span>
@@ -814,8 +801,7 @@
       </a>
 
       <a class="proj-card reveal" href="https://freelance-moldova.com/" target="_blank" rel="noopener">
-        <div class="proj-type">Marketplace</div>
-        <h3 class="proj-title">Freelance Moldova</h3>
+        <h3 class="proj-title">Freelance Moldova <span class="proj-type-inline">Marketplace</span></h3>
         <p class="proj-desc">The first free freelance marketplace built for Moldova — connecting local talent with clients. Already live with real registered users. Built entirely with AI tools, zero traditional code.</p>
         <div class="proj-foot">
           <span class="proj-url">freelance-moldova.com</span>
