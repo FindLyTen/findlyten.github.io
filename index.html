@@ -10,768 +10,400 @@
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --g0: #ffffff;
-      --g1: #f7f7f5;
-      --g2: #eeeeed;
-      --g3: #dededd;
-      --g4: #ababaa;
-      --g5: #606060;
-      --g6: #282826;
-      --g7: #0f0f0e;
-
-      --green:      #18c952;
-      --green-d:    #12a340;
-      --green-pale: #e6f9ed;
-
-      --ease-out:    cubic-bezier(0.16, 1, 0.3, 1);
-      --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+      --g0:#ffffff; --g1:#f7f7f5; --g2:#eeeeed; --g3:#dededd;
+      --g4:#ababaa; --g5:#606060; --g6:#282826; --g7:#0f0f0e;
+      --green:#18c952; --green-d:#12a340; --green-pale:#e6f9ed;
+      --ease-out:cubic-bezier(0.16,1,0.3,1);
+      --ease-spring:cubic-bezier(0.34,1.56,0.64,1);
     }
-
     html { scroll-behavior: smooth; }
-
     body {
-      font-family: 'Space Grotesk', system-ui, sans-serif;
-      background: var(--g0);
-      color: var(--g7);
-      font-size: 17px;
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
-      overflow-x: hidden;
+      font-family:'Space Grotesk',system-ui,sans-serif;
+      background:var(--g0); color:var(--g7); font-size:17px;
+      line-height:1.6; -webkit-font-smoothing:antialiased; overflow-x:hidden;
     }
 
-    /* ── NAV ── */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      height: 58px;
-    }
-
+    /* NAV */
+    nav { position:fixed; top:0; left:0; right:0; z-index:100; height:58px; }
     nav::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: rgba(255,255,255,0.88);
-      backdrop-filter: blur(18px) saturate(160%);
-      -webkit-backdrop-filter: blur(18px) saturate(160%);
-      border-bottom: 1px solid var(--g2);
-      z-index: -1;
+      content:''; position:absolute; inset:0;
+      background:rgba(255,255,255,0.88);
+      backdrop-filter:blur(18px) saturate(160%);
+      border-bottom:1px solid var(--g2); z-index:-1;
     }
-
     .nav-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 40px;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
+      max-width:1100px; margin:0 auto; padding:0 40px;
+      height:100%; display:flex; align-items:center;
+      justify-content:space-between; gap:20px;
     }
-
-    .nav-left {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-
-    .nav-name {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 17px;
-      font-weight: 700;
-      color: var(--g7);
-      text-decoration: none;
-      letter-spacing: -0.02em;
-    }
-
+    .nav-left { display:flex; align-items:center; gap:14px; }
+    .nav-name { font-size:17px; font-weight:700; color:var(--g7); text-decoration:none; letter-spacing:-0.02em; }
     .nav-status {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: var(--green-pale);
-      border: 1px solid rgba(24,201,82,0.25);
-      border-radius: 100px;
-      padding: 4px 10px;
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--green-d);
-      letter-spacing: 0.02em;
-      white-space: nowrap;
+      display:inline-flex; align-items:center;
+      background:var(--green-pale); border:1px solid rgba(24,201,82,0.25);
+      border-radius:100px; padding:4px 12px; font-size:13px;
+      font-weight:600; color:var(--green-d); white-space:nowrap;
     }
-
-    .status-dot {
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
-      background: var(--green);
-      animation: pulse 2s ease-in-out infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.35; }
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 32px;
-      list-style: none;
-    }
-
-    .nav-links a {
-      font-size: 15px;
-      font-weight: 500;
-      color: var(--g5);
-      text-decoration: none;
-      transition: color 0.2s;
-      letter-spacing: -0.01em;
-    }
-
-    .nav-links a:hover { color: var(--g7); }
-
+    .nav-links { display:flex; gap:32px; list-style:none; }
+    .nav-links a { font-size:15px; font-weight:500; color:var(--g5); text-decoration:none; transition:color 0.2s; }
+    .nav-links a:hover { color:var(--g7); }
     .nav-hire {
-      display: inline-flex;
-      align-items: center;
-      background: var(--g7);
-      color: #fff;
-      font-size: 15px;
-      font-weight: 600;
-      padding: 8px 18px;
-      border-radius: 8px;
-      text-decoration: none;
-      transition: background 0.2s, transform 0.15s;
-      letter-spacing: -0.01em;
-      white-space: nowrap;
+      background:var(--g7); color:#fff; font-size:15px; font-weight:600;
+      padding:8px 20px; border-radius:8px; text-decoration:none;
+      transition:background 0.2s,transform 0.15s; white-space:nowrap;
     }
+    .nav-hire:hover { background:var(--g6); transform:translateY(-1px); }
 
-    .nav-hire:hover { background: var(--g6); transform: translateY(-1px); }
+    .wrap { max-width:1100px; margin:0 auto; padding:0 40px; }
 
-    /* ── WRAP ── */
-    .wrap {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 40px;
-    }
-
-    /* ── HERO ── */
-    .hero {
-      padding: 130px 0 90px;
-      display: grid;
-      grid-template-columns: 1fr 360px;
-      gap: 64px;
-      align-items: center;
-    }
-
+    /* HERO */
+    .hero { padding:130px 0 60px; display:grid; grid-template-columns:1fr 360px; gap:64px; align-items:center; }
     .hero h1 {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: clamp(52px, 5.8vw, 84px);
-      font-weight: 700;
-      line-height: 1.0;
-      letter-spacing: -0.04em;
-      color: var(--g7);
-      margin-bottom: 26px;
-      opacity: 0;
-      animation: fadeUp 0.7s var(--ease-out) 0.1s forwards;
+      font-size:clamp(52px,5.8vw,84px); font-weight:700; line-height:1.0;
+      letter-spacing:-0.04em; color:var(--g7); margin-bottom:26px;
+      opacity:0; animation:fadeUp 0.7s var(--ease-out) 0.1s forwards;
     }
-
-    .hero h1 .line-green {
-      color: var(--green);
-      font-family: 'Instrument Serif', Georgia, serif;
-      font-style: italic;
-      font-weight: 400;
-      letter-spacing: -0.02em;
-    }
-
+    .hero h1 .line-green { color:var(--green); font-family:'Instrument Serif',serif; font-style:italic; font-weight:400; letter-spacing:-0.02em; }
     .hero-sub {
-      font-size: 20px;
-      font-weight: 300;
-      color: var(--g5);
-      line-height: 1.72;
-      max-width: 460px;
-      margin-bottom: 40px;
-      opacity: 0;
-      animation: fadeUp 0.7s var(--ease-out) 0.22s forwards;
+      font-size:19px; font-weight:300; color:var(--g5); line-height:1.72;
+      max-width:460px; margin-bottom:40px;
+      opacity:0; animation:fadeUp 0.7s var(--ease-out) 0.22s forwards;
     }
-
-    .hero-sub strong { color: var(--g7); font-weight: 600; }
-
-    .hero-btns {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      opacity: 0;
-      animation: fadeUp 0.6s var(--ease-out) 0.34s forwards;
-    }
-
+    .hero-sub strong { color:var(--g7); font-weight:600; }
+    .hero-btns { display:flex; gap:10px; flex-wrap:wrap; opacity:0; animation:fadeUp 0.6s var(--ease-out) 0.34s forwards; }
     .btn-dark {
-      display: inline-flex;
-      align-items: center;
-      background: var(--g7);
-      color: #fff;
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 16px;
-      font-weight: 600;
-      padding: 13px 26px;
-      border-radius: 8px;
-      text-decoration: none;
-      transition: background 0.2s, transform 0.15s;
-      letter-spacing: -0.01em;
+      display:inline-flex; align-items:center; background:var(--g7); color:#fff;
+      font-size:15px; font-weight:600; padding:13px 26px; border-radius:8px;
+      text-decoration:none; transition:background 0.2s,transform 0.15s;
     }
-
-    .btn-dark:hover { background: var(--g6); transform: translateY(-1px); }
-    .btn-dark:active { transform: scale(0.98); }
-
+    .btn-dark:hover { background:var(--g6); transform:translateY(-1px); }
     .btn-line {
-      display: inline-flex;
-      align-items: center;
-      border: 1.5px solid var(--g3);
-      color: var(--g6);
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 16px;
-      font-weight: 500;
-      padding: 13px 26px;
-      border-radius: 8px;
-      text-decoration: none;
-      transition: border-color 0.2s, background 0.2s, transform 0.15s;
-      letter-spacing: -0.01em;
+      display:inline-flex; align-items:center; border:1.5px solid var(--g3);
+      color:var(--g6); font-size:15px; font-weight:500; padding:13px 26px;
+      border-radius:8px; text-decoration:none; transition:border-color 0.2s,background 0.2s,transform 0.15s;
     }
+    .btn-line:hover { border-color:var(--g4); background:var(--g1); transform:translateY(-1px); }
 
-    .btn-line:hover { border-color: var(--g4); background: var(--g1); transform: translateY(-1px); }
-
-    /* ── HERO PHOTO ── */
-    .hero-right {
-      opacity: 0;
-      animation: fadeUp 0.8s var(--ease-out) 0.3s forwards;
-    }
-
+    /* PHOTO */
+    .hero-right { opacity:0; animation:fadeUp 0.8s var(--ease-out) 0.3s forwards; }
     .photo-frame {
-      border-radius: 18px;
-      overflow: hidden;
-      background: var(--g2);
-      aspect-ratio: 3/4;
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      border-radius:18px; overflow:hidden; background:var(--g2);
+      aspect-ratio:3/4; display:flex; align-items:center; justify-content:center;
     }
+    .photo-placeholder { display:flex; flex-direction:column; align-items:center; gap:10px; color:var(--g4); text-align:center; }
+    .photo-placeholder svg { opacity:0.4; }
+    .photo-placeholder span { font-size:12px; color:var(--g4); }
+    .photo-frame img { width:100%; height:100%; object-fit:cover; }
 
-    .photo-placeholder {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
-      color: var(--g4);
-      text-align: center;
-    }
-
-    .photo-placeholder svg { opacity: 0.5; }
-
-    .photo-placeholder span {
-      font-size: 12px;
-      color: var(--g4);
-      line-height: 1.5;
-    }
-
-    .photo-frame img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-
-
-    /* ── STATS ── */
+    /* STATS */
     .stats {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      border: 1.5px solid rgba(24,201,82,0.45);
-      border-radius: 14px;
-      overflow: hidden;
-      margin-top: 40px;
-      opacity: 0;
-      animation: fadeUp 0.6s var(--ease-out) 0.5s forwards;
-      box-shadow: 0 0 24px rgba(24,201,82,0.10), 0 0 6px rgba(24,201,82,0.08);
+      display:grid; grid-template-columns:repeat(3,1fr);
+      border:1.5px solid rgba(24,201,82,0.4); border-radius:14px; overflow:hidden;
+      margin-top:40px; margin-bottom:80px;
+      opacity:0; animation:fadeUp 0.6s var(--ease-out) 0.5s forwards;
+      box-shadow:0 0 28px rgba(24,201,82,0.14),0 0 6px rgba(24,201,82,0.1);
     }
+    .stat { padding:28px 36px; border-right:1.5px solid rgba(24,201,82,0.25); }
+    .stat:last-child { border-right:none; }
+    .stat-n { font-size:42px; font-weight:700; letter-spacing:-0.04em; color:var(--g7); line-height:1; margin-bottom:5px; }
+    .stat-n .g { color:var(--green); }
+    .stat-l { font-size:14px; color:var(--g4); font-weight:500; }
 
-    .stat {
-      padding: 30px 36px;
-      border-right: 1.5px solid rgba(24,201,82,0.3);
-    }
+    /* SECTION TITLES */
+    .s-title { font-size:clamp(34px,3.8vw,54px); font-weight:700; letter-spacing:-0.04em; color:var(--g7); line-height:1.05; margin-bottom:16px; }
+    .s-lead { font-size:18px; font-weight:300; color:var(--g5); max-width:500px; line-height:1.72; }
 
-    .stat:last-child { border-right: none; }
-
-    .stat-n {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 42px;
-      font-weight: 700;
-      letter-spacing: -0.04em;
-      color: var(--g7);
-      line-height: 1;
-      margin-bottom: 5px;
-    }
-
-    .stat-n .g { color: var(--green); }
-    .stat-l { font-size: 14px; color: var(--g4); font-weight: 500; letter-spacing: 0.01em; }
-
-    /* ── SECTION TITLES ── */
-    .s-label {
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--g4);
-      margin-bottom: 16px;
-    }
-
-    .s-title {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: clamp(34px, 3.8vw, 54px);
-      font-weight: 700;
-      letter-spacing: -0.04em;
-      color: var(--g7);
-      line-height: 1.05;
-      margin-bottom: 16px;
-    }
-
-    .s-lead {
-      font-size: 18px;
-      font-weight: 300;
-      color: var(--g5);
-      max-width: 480px;
-      line-height: 1.72;
-    }
-
-
-    .proj-type-inline {
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--green-d);
-      background: var(--green-pale);
-      padding: 3px 9px;
-      border-radius: 5px;
-      vertical-align: middle;
-      margin-left: 10px;
-      position: relative;
-      top: -3px;
-    }
-    /* ── PROJECTS ── */
-    #projects {
-      padding: 100px 0;
-      background: var(--g1);
-    }
-
-    .projects-header { margin-bottom: 52px; }
-
-    .projects-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-    }
+    /* PROJECTS */
+    #projects { padding:100px 0; background:var(--g1); }
+    .projects-header { margin-bottom:52px; }
+    .projects-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; align-items:stretch; }
 
     .proj-card {
-      background: var(--g0);
-      border: 1.5px solid var(--g3);
-      border-radius: 16px;
-      padding: 36px;
-      text-decoration: none;
-      color: inherit;
-      display: flex;
-      flex-direction: column;
-      transition: border-color 0.25s, transform 0.25s var(--ease-out), box-shadow 0.25s;
-      position: relative;
-      overflow: hidden;
+      background:var(--g0); border:1.5px solid var(--g3); border-radius:16px;
+      padding:36px; text-decoration:none; color:inherit;
+      display:grid; grid-template-rows:auto 1fr auto;
+      position:relative; overflow:hidden;
+      transition:border-color 0.3s,transform 0.3s var(--ease-out),box-shadow 0.3s;
     }
-
     .proj-card::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, rgba(24,201,82,0.04) 0%, transparent 60%);
-      opacity: 0;
-      transition: opacity 0.3s;
+      content:''; position:absolute; inset:0;
+      background:linear-gradient(135deg,rgba(24,201,82,0.05) 0%,transparent 60%);
+      opacity:0; transition:opacity 0.3s;
     }
+    .proj-card:hover { border-color:rgba(24,201,82,0.45); transform:translateY(-4px); box-shadow:0 12px 40px rgba(0,0,0,0.07); }
+    .proj-card:hover::before { opacity:1; }
 
-    .proj-card:hover {
-      border-color: rgba(24,201,82,0.4);
-      transform: translateY(-3px);
-      box-shadow: 0 10px 32px rgba(0,0,0,0.07);
+    /* Tag row above title */
+    .proj-header { display:flex; align-items:center; gap:10px; margin-bottom:14px; flex-wrap:wrap; }
+    .proj-type-tag {
+      font-size:11px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase;
+      color:var(--green-d); background:var(--green-pale); padding:4px 10px; border-radius:5px;
     }
-
-    .proj-card:hover::before { opacity: 1; }
-
-    .proj-type {
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--green-d);
-      background: var(--green-pale);
-      padding: 5px 12px;
-      border-radius: 6px;
-      width: fit-content;
-      margin-bottom: 22px;
-    }
-
-    .proj-title {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 28px;
-      font-weight: 700;
-      letter-spacing: -0.03em;
-      color: var(--g7);
-      margin-bottom: 12px;
-      line-height: 1.1;
-    }
-
-    .proj-desc {
-      font-size: 16px;
-      font-weight: 300;
-      color: var(--g5);
-      line-height: 1.72;
-      flex: 1;
-      margin-bottom: 28px;
-    }
-
+    .proj-title { font-size:26px; font-weight:700; letter-spacing:-0.03em; color:var(--g7); line-height:1.1; }
+    .proj-desc { font-size:15px; font-weight:300; color:var(--g5); line-height:1.72; padding:14px 0 28px; }
     .proj-foot {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding-top: 18px;
-      border-top: 1px solid var(--g2);
+      display:flex; align-items:center; justify-content:space-between;
+      padding-top:18px; border-top:1px solid var(--g2);
     }
+    .proj-url { font-size:13px; color:var(--g4); font-weight:500; }
 
-    .proj-url { font-size: 14px; color: var(--g4); font-weight: 500; }
-
+    /* Project button — open icon, not arrow */
     .proj-btn {
-      width: 32px;
-      height: 32px;
-      border-radius: 8px;
-      background: var(--g2);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--g5);
-      font-size: 16px;
-      transition: background 0.2s, color 0.2s, transform 0.2s var(--ease-spring);
+      width:34px; height:34px; border-radius:8px; background:var(--g2);
+      display:flex; align-items:center; justify-content:center;
+      transition:background 0.2s,transform 0.25s var(--ease-spring);
     }
+    .proj-btn svg { width:14px; height:14px; stroke:var(--g5); transition:stroke 0.2s; }
+    .proj-card:hover .proj-btn { background:var(--green); transform:scale(1.12); }
+    .proj-card:hover .proj-btn svg { stroke:#fff; }
 
-    .proj-card:hover .proj-btn {
-      background: var(--green);
-      color: #fff;
-      transform: rotate(-45deg);
-    }
+    /* ABOUT */
+    #about { padding:100px 0; }
+    .about-grid { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:start; }
+    .about-copy p { font-size:17px; font-weight:300; color:var(--g5); line-height:1.8; margin-bottom:18px; }
+    .about-copy p strong { color:var(--g7); font-weight:600; }
+    .about-copy p:last-child { margin-bottom:0; }
 
-    /* ── ABOUT ── */
-    #about { padding: 100px 0; }
-
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 80px;
-      align-items: start;
-    }
-
-    .about-copy { }
-
-    .about-copy p {
-      font-size: 18px;
-      font-weight: 300;
-      color: var(--g5);
-      line-height: 1.78;
-      margin-bottom: 16px;
-    }
-
-    .about-copy p strong { color: var(--g7); font-weight: 600; }
-
-    .about-steps { }
-
+    /* Steps — always glowing lines */
     .step {
-      padding: 22px 0;
-      border-top: 1px solid var(--g3);
-      display: grid;
-      grid-template-columns: 36px 1fr;
-      gap: 14px;
+      padding:22px 0; position:relative;
+      display:grid; grid-template-columns:36px 1fr; gap:14px;
     }
-
-    .step:last-child { border-bottom: 1px solid var(--g3); }
-
-    .step-n {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--green);
-      padding-top: 3px;
-      letter-spacing: 0.02em;
+    .step::before {
+      content:''; position:absolute; top:0; left:0; right:0; height:1px;
+      background:linear-gradient(90deg,rgba(24,201,82,0.7),rgba(24,201,82,0.15));
+      box-shadow:0 0 6px rgba(24,201,82,0.4);
     }
-
-    .step-title {
-      font-size: 16px;
-      font-weight: 600;
-      color: var(--g7);
-      margin-bottom: 4px;
-      letter-spacing: -0.01em;
+    .step:last-child::after {
+      content:''; position:absolute; bottom:0; left:0; right:0; height:1px;
+      background:linear-gradient(90deg,rgba(24,201,82,0.7),rgba(24,201,82,0.15));
+      box-shadow:0 0 6px rgba(24,201,82,0.4);
     }
+    .step-n { font-size:12px; font-weight:700; color:var(--green); padding-top:3px; letter-spacing:0.02em; }
+    .step-title { font-size:15px; font-weight:600; color:var(--g7); margin-bottom:4px; }
+    .step-text { font-size:14px; font-weight:300; color:var(--g5); line-height:1.65; }
 
-    .step-text {
-      font-size: 15px;
-      font-weight: 300;
-      color: var(--g5);
-      line-height: 1.65;
-    }
-
-    /* ── LANGUAGES ── */
-    .langs { margin-top: 64px; }
-
-    .langs-label {
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--g4);
-      margin-bottom: 18px;
-    }
-
-    .langs-row {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
+    /* LANGUAGES */
+    .langs { margin-top:56px; }
+    .langs-label { font-size:11px; font-weight:600; letter-spacing:0.12em; text-transform:uppercase; color:var(--g4); margin-bottom:16px; }
+    .langs-row { display:flex; gap:10px; flex-wrap:wrap; }
     .lang-pill {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 10px 18px;
-      border: 1.5px solid var(--g3);
-      border-radius: 10px;
-      background: var(--g0);
-      transition: border-color 0.2s, background 0.2s;
-      cursor: default;
+      display:flex; align-items:center; gap:10px; padding:10px 18px;
+      border:1.5px solid var(--g3); border-radius:10px; background:var(--g0);
+      transition:border-color 0.2s,background 0.2s,transform 0.2s var(--ease-spring);
     }
+    .lang-pill:hover { border-color:rgba(24,201,82,0.4); background:var(--green-pale); transform:translateY(-2px); }
+    .lang-flag { width:20px; height:14px; border-radius:2px; object-fit:cover; display:block; }
+    .lang-name { font-size:15px; font-weight:600; color:var(--g7); }
+    .lang-level { font-size:13px; color:var(--green-d); font-weight:500; }
 
-    .lang-pill:hover { border-color: rgba(24,201,82,0.35); background: var(--green-pale); }
-
-    .lang-flag {
-      width: 20px;
-      height: 14px;
-      border-radius: 2px;
-      object-fit: cover;
-      display: block;
-    }
-
-    .lang-flag-text {
-      font-size: 11px;
-      font-weight: 700;
-      color: var(--g5);
-      letter-spacing: 0.05em;
-      line-height: 1;
-    }
-
-    .lang-name { font-size: 16px; font-weight: 600; color: var(--g7); letter-spacing: -0.01em; }
-    .lang-level { font-size: 14px; color: var(--green-d); font-weight: 500; }
-
-    /* ── SKILLS ── */
-    #skills {
-      padding: 100px 0;
-      background: var(--g1);
-    }
-
-    .skills-grid {
-      margin-top: 52px;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-    }
-
+    /* SKILLS */
+    #skills { padding:100px 0; background:var(--g1); }
+    .skills-grid { margin-top:48px; display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
     .skill-card {
-      background: var(--g0);
-      border: 1.5px solid var(--g3);
-      border-radius: 12px;
-      padding: 24px 26px;
-      transition: border-color 0.2s, transform 0.2s var(--ease-out);
+      background:var(--g0); border:1.5px solid var(--g3); border-radius:12px;
+      padding:26px; position:relative; overflow:hidden;
+      transition:border-color 0.25s,transform 0.25s var(--ease-out),box-shadow 0.25s;
     }
-
-    .skill-card:hover { border-color: rgba(24,201,82,0.35); transform: translateY(-2px); }
-
-    .skill-num {
-      font-size: 11px;
-      font-weight: 700;
-      color: var(--green);
-      letter-spacing: 0.06em;
-      margin-bottom: 12px;
+    .skill-card::after {
+      content:''; position:absolute; bottom:0; left:0; right:0; height:2px;
+      background:linear-gradient(90deg,var(--green),rgba(24,201,82,0.2));
+      transform:scaleX(0); transform-origin:left; transition:transform 0.3s var(--ease-out);
     }
+    .skill-card:hover { border-color:rgba(24,201,82,0.4); transform:translateY(-3px); box-shadow:0 8px 24px rgba(24,201,82,0.08); }
+    .skill-card:hover::after { transform:scaleX(1); }
 
-    .skill-title {
-      font-size: 16px;
-      font-weight: 700;
-      color: var(--g7);
-      margin-bottom: 6px;
-      letter-spacing: -0.02em;
-    }
+    /* SVG icons in skills */
+    .skill-icon { margin-bottom:16px; display:block; }
+    .skill-icon svg { width:24px; height:24px; stroke:var(--green); stroke-width:1.6; fill:none; stroke-linecap:round; stroke-linejoin:round; transition:transform 0.2s var(--ease-spring); }
+    .skill-card:hover .skill-icon svg { transform:scale(1.12); }
+    .skill-title { font-size:15px; font-weight:700; color:var(--g7); margin-bottom:6px; letter-spacing:-0.02em; }
+    .skill-text { font-size:13px; font-weight:300; color:var(--g4); line-height:1.6; }
 
-    .skill-text {
-      font-size: 14px;
-      font-weight: 300;
-      color: var(--g4);
-      line-height: 1.6;
-    }
-
-    /* ── CONTACT ── */
-    #contact { padding: 100px 0; }
-
+    /* CONTACT */
+    #contact { padding:100px 0; }
     .contact-box {
-      background: var(--g7);
-      border-radius: 20px;
-      padding: 72px 80px;
-      position: relative;
-      overflow: hidden;
+      background:var(--g7); border-radius:20px; padding:72px 80px;
+      position:relative; overflow:hidden;
     }
-
     .contact-box::after {
-      content: '';
-      position: absolute;
-      top: -200px; right: -200px;
-      width: 600px; height: 600px;
-      background: radial-gradient(circle, rgba(24,201,82,0.1) 0%, transparent 60%);
-      pointer-events: none;
+      content:''; position:absolute; top:-200px; right:-200px;
+      width:600px; height:600px;
+      background:radial-gradient(circle,rgba(24,201,82,0.1) 0%,transparent 60%);
+      pointer-events:none;
     }
-
-    .contact-box .s-label { color: rgba(255,255,255,0.3); }
-    .contact-box .s-title { color: #fff; }
-    .contact-box .s-lead { color: rgba(255,255,255,0.4); margin-bottom: 40px; }
-
-    .c-btns { display: flex; gap: 10px; flex-wrap: wrap; }
-
+    .contact-box .s-title { color:#fff; }
+    .contact-box .s-lead { color:rgba(255,255,255,0.4); margin-bottom:40px; }
+    .c-btns { display:flex; gap:10px; flex-wrap:wrap; }
     .c-btn {
-      display: inline-flex;
-      align-items: center;
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 16px;
-      font-weight: 600;
-      padding: 12px 24px;
-      border-radius: 8px;
-      text-decoration: none;
-      letter-spacing: -0.01em;
-      transition: all 0.2s;
+      display:inline-flex; align-items:center; gap:8px; font-size:15px;
+      font-weight:600; padding:12px 24px; border-radius:8px; text-decoration:none; transition:all 0.2s;
+    }
+    .c-green { background:var(--green); color:#fff; }
+    .c-green:hover { background:#22e05d; transform:translateY(-1px); }
+    .c-ghost { border:1px solid rgba(255,255,255,0.18); color:rgba(255,255,255,0.65); }
+    .c-ghost:hover { border-color:rgba(255,255,255,0.45); color:#fff; }
+
+    /* FOOTER */
+    footer { border-top:1px solid var(--g2); padding:26px 0; }
+    .foot-inner { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; }
+    .foot-l { font-size:14px; color:var(--g4); }
+    .foot-l strong { color:var(--g6); font-weight:700; }
+    .foot-r { font-size:13px; color:var(--g4); }
+
+    /* REVEAL */
+    .reveal { opacity:0; transform:translateY(22px); transition:opacity 0.65s var(--ease-out),transform 0.65s var(--ease-out); }
+    .reveal.in { opacity:1; transform:none; }
+    @keyframes fadeUp { to { opacity:1; transform:none; } }
+
+    /* CURSOR */
+    @media (pointer:fine) { *{cursor:none!important} }
+    .cursor-glow {
+      position:fixed; pointer-events:none; z-index:9999;
+      width:8px; height:8px; transform:translate(-50%,-50%);
+      border-radius:50%; background:#18c952;
+      box-shadow:0 0 4px 1px rgba(24,201,82,0.85),0 0 12px 4px rgba(24,201,82,0.35),0 0 28px 8px rgba(24,201,82,0.12);
+      transition:width 0.25s var(--ease-spring),height 0.25s var(--ease-spring),box-shadow 0.25s;
+    }
+    .cursor-glow.big {
+      width:13px; height:13px;
+      box-shadow:0 0 5px 2px rgba(24,201,82,0.9),0 0 18px 6px rgba(24,201,82,0.4),0 0 40px 12px rgba(24,201,82,0.15);
+    }
+    @media (hover:none) { .cursor-glow{display:none} }
+
+    /* MOBILE */
+    @media (max-width:860px) {
+      .wrap{padding:0 20px} .nav-inner{padding:0 20px} .nav-links{display:none}
+      .hero{grid-template-columns:1fr;padding:100px 0 56px;gap:36px}
+      .hero-right{order:-1} .photo-frame{aspect-ratio:16/9;max-height:220px}
+      .stats{grid-template-columns:1fr}
+      .stat{border-right:none;border-bottom:1.5px solid rgba(24,201,82,0.25)}
+      .stat:last-child{border-bottom:none}
+      .projects-grid{grid-template-columns:1fr}
+      .about-grid{grid-template-columns:1fr;gap:40px}
+      .skills-grid{grid-template-columns:1fr 1fr}
+      .contact-box{padding:40px 28px} section{padding:64px 0}
     }
 
-    .c-green { background: var(--green); color: #fff; }
-    .c-green:hover { background: #22e05d; transform: translateY(-1px); }
-
-    .c-ghost { border: 1px solid rgba(255,255,255,0.18); color: rgba(255,255,255,0.65); }
-    .c-ghost:hover { border-color: rgba(255,255,255,0.45); color: #fff; }
-
-    /* ── FOOTER ── */
-    footer {
-      border-top: 1px solid var(--g2);
-      padding: 26px 0;
+    /* SCROLL PROGRESS */
+    .progress-bar {
+      position:fixed; top:0; left:0; height:2px; z-index:9999;
+      background:linear-gradient(90deg,var(--green),rgba(24,201,82,0.4));
+      box-shadow:0 0 8px rgba(24,201,82,0.6);
+      width:0%; transition:width 0.1s linear;
+      pointer-events:none;
     }
 
-    .foot-inner {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 10px;
+    /* COUNTER ANIMATION */
+    .stat-n { transition:color 0.3s; }
+
+    /* HERO TEXT WORD REVEAL */
+    .word {
+      display:inline-block;
+      opacity:0;
+      transform:translateY(14px);
+      animation:wordUp 0.5s var(--ease-out) forwards;
     }
 
-    .foot-l { font-size: 15px; color: var(--g4); }
-    .foot-l strong { color: var(--g6); font-weight: 700; }
-    .foot-r { font-size: 14px; color: var(--g4); }
-
-    /* ── REVEAL ── */
-    .reveal {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
-    }
-    .reveal.in { opacity: 1; transform: none; }
-
-    @keyframes fadeUp {
-      to { opacity: 1; transform: none; }
+    @keyframes wordUp {
+      to { opacity:1; transform:none; }
     }
 
-    /* ── MOBILE ── */
-    @media (max-width: 860px) {
-      .wrap { padding: 0 20px; }
-      .nav-inner { padding: 0 20px; }
-      .nav-links { display: none; }
-      .hero { grid-template-columns: 1fr; padding: 100px 0 56px; gap: 36px; }
-      .hero-right { order: -1; }
-      .photo-frame { aspect-ratio: 16/9; max-height: 240px; }
-      .stats { grid-template-columns: 1fr; }
-      .stat { border-right: none; border-bottom: 1.5px solid var(--g3); }
-      .stat:last-child { border-bottom: none; }
-      .projects-grid { grid-template-columns: 1fr; }
-      .about-grid { grid-template-columns: 1fr; gap: 40px; }
-      .skills-grid { grid-template-columns: 1fr 1fr; }
-      .contact-box { padding: 40px 28px; }
-      section { padding: 64px 0; }
+    /* PHOTO hover parallax */
+    .photo-frame {
+      transition:transform 0.4s var(--ease-out);
+      transform-style:preserve-3d;
+    }
+    .photo-frame img {
+      transition:transform 0.4s var(--ease-out);
+    }
+    .hero-right:hover .photo-frame {
+      transform:perspective(800px) rotateY(-3deg) rotateX(2deg);
+    }
+    .hero-right:hover .photo-frame img {
+      transform:scale(1.03);
     }
 
-    /* ── CUSTOM CURSOR ── */
-    * { cursor: none !important; }
-
-    .cursor {
-      position: fixed;
-      pointer-events: none;
-      z-index: 9999;
-      mix-blend-mode: normal;
+    /* SKILL ICON pulse on hover */
+    .skill-card:hover .skill-icon svg {
+      animation:iconPulse 0.4s var(--ease-spring);
+    }
+    @keyframes iconPulse {
+      0%{transform:scale(1)} 50%{transform:scale(1.25)} 100%{transform:scale(1.1)}
     }
 
-    .cursor-dot {
-      width: 10px;
-      height: 10px;
-      background: var(--green);
-      border-radius: 50%;
-      transform: translate(-50%, -50%);
-      box-shadow: 0 0 12px rgba(24,201,82,0.9), 0 0 24px rgba(24,201,82,0.5), 0 0 40px rgba(24,201,82,0.2);
-      transition: width 0.15s, height 0.15s, background 0.15s;
+    /* PROJ CARD shimmer on hover */
+    .proj-card::after {
+      content:'';
+      position:absolute;
+      top:-50%; left:-75%;
+      width:50%; height:200%;
+      background:linear-gradient(90deg,transparent,rgba(255,255,255,0.06),transparent);
+      transform:skewX(-20deg);
+      transition:left 0.6s var(--ease-out);
+      pointer-events:none;
     }
+    .proj-card:hover::after { left:125%; }
 
-    .cursor-ring {
-      width: 36px;
-      height: 36px;
-      border: 1.5px solid rgba(24,201,82,0.5);
-      border-radius: 50%;
-      transform: translate(-50%, -50%);
-      box-shadow: 0 0 8px rgba(24,201,82,0.3);
-      transition: width 0.3s var(--ease-out), height 0.3s var(--ease-out), border-color 0.3s, opacity 0.3s;
+    /* STATS count-up flash */
+    @keyframes countFlash {
+      0%{color:var(--green);text-shadow:0 0 20px rgba(24,201,82,0.8)}
+      100%{color:var(--green);text-shadow:none}
     }
+    .stat-n.counted { animation:countFlash 0.8s ease-out; }
 
-    body:has(a:hover) .cursor-dot,
-    body:has(button:hover) .cursor-dot {
-      width: 14px;
-      height: 14px;
-    }
+    /* NAV scroll shrink */
+    nav.scrolled::before { box-shadow:0 2px 20px rgba(0,0,0,0.06); }
 
-    body:has(a:hover) .cursor-ring,
-    body:has(button:hover) .cursor-ring {
-      width: 52px;
-      height: 52px;
-      border-color: rgba(24,201,82,0.8);
+    /* SECTION title underline draw */
+    .s-title { position:relative; display:inline-block; }
+    .s-title::after {
+      content:'';
+      position:absolute; bottom:-4px; left:0;
+      height:2px; width:0;
+      background:var(--green);
+      box-shadow:0 0 8px rgba(24,201,82,0.5);
+      transition:width 0.6s var(--ease-out);
     }
+    .reveal.in .s-title::after { width:40px; }
 
-    @media (hover: none) {
-      * { cursor: auto !important; }
-      .cursor { display: none; }
-    }
+    /* LANG PILL stagger */
+    .lang-pill { opacity:0; transform:translateY(8px); }
+    .langs.in .lang-pill { opacity:1; transform:none; transition:opacity 0.4s var(--ease-out), transform 0.4s var(--ease-out); }
+    .langs.in .lang-pill:nth-child(1){transition-delay:0ms}
+    .langs.in .lang-pill:nth-child(2){transition-delay:80ms}
+    .langs.in .lang-pill:nth-child(3){transition-delay:160ms}
+    .langs.in .lang-pill:nth-child(4){transition-delay:240ms}
+
+    /* STEP slide in */
+    .step { opacity:0; transform:translateX(-8px); transition:opacity 0.45s var(--ease-out),transform 0.45s var(--ease-out); }
+    .about-steps.in .step { opacity:1; transform:none; }
+    .about-steps.in .step:nth-child(1){transition-delay:0ms}
+    .about-steps.in .step:nth-child(2){transition-delay:100ms}
+    .about-steps.in .step:nth-child(3){transition-delay:200ms}
+    .about-steps.in .step:nth-child(4){transition-delay:300ms}
+
+    /* SKILL CARD stagger */
+    .skill-card { opacity:0; transform:translateY(16px); }
+    .skills-grid .skill-card { transition:opacity 0.45s var(--ease-out),transform 0.45s var(--ease-out),border-color 0.25s,box-shadow 0.25s; }
+    .skills-grid.in .skill-card { opacity:1; transform:none; }
+    .skills-grid.in .skill-card:nth-child(1){transition-delay:0ms}
+    .skills-grid.in .skill-card:nth-child(2){transition-delay:80ms}
+    .skills-grid.in .skill-card:nth-child(3){transition-delay:160ms}
+    .skills-grid.in .skill-card:nth-child(4){transition-delay:240ms}
+    .skills-grid.in .skill-card:nth-child(5){transition-delay:320ms}
+    .skills-grid.in .skill-card:nth-child(6){transition-delay:400ms}
   </style>
 </head>
 <body>
+<div class="progress-bar" id="progress"></div>
 
-<!-- NAV -->
 <nav>
   <div class="nav-inner">
     <div class="nav-left">
       <a href="#" class="nav-name">Maxim Smirnov</a>
-      <span class="nav-status">
-        
-        Open to work
-      </span>
+      <span class="nav-status">Open to work</span>
     </div>
     <ul class="nav-links">
       <li><a href="#projects">Projects</a></li>
@@ -783,51 +415,26 @@
   </div>
 </nav>
 
-<!-- HERO -->
 <div class="wrap">
   <div class="hero">
     <div class="hero-left">
-      <h1>
-        Building<br>
-        <span class="line-green">digital</span><br>
-        products
-      </h1>
-      <p class="hero-sub">
-        I'm <strong>Maxim Smirnov</strong> — a founder from Moldova who turns market gaps into real products. No traditional code needed when you have the right tools and a sharp eye for what's missing.
-      </p>
+      <h1 id="hero-h1">Building<br><span class="line-green">digital</span><br>products</h1>
+      <p class="hero-sub">I'm <strong>Maxim Smirnov</strong> — a founder from Moldova who turns market gaps into real products. Sharp eye for opportunities, fast execution, zero traditional code required.</p>
       <div class="hero-btns">
         <a href="#projects" class="btn-dark">See projects</a>
         <a href="#contact" class="btn-line">Let's talk</a>
       </div>
     </div>
-
     <div class="hero-right">
       <div class="photo-frame">
-        <div class="photo-placeholder">
-          <svg width="44" height="44" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round">
-            <circle cx="22" cy="16" r="7"/>
-            <path d="M6 38c0-8.837 7.163-16 16-16s16 7.163 16 16"/>
-          </svg>
-          <span>Add your photo here</span>
-        </div>
-
+        <img src="me.png" alt="Maxim Smirnov">
       </div>
     </div>
   </div>
-
   <div class="stats reveal">
-    <div class="stat">
-      <div class="stat-n"><span class="g">2</span></div>
-      <div class="stat-l">Products launched</div>
-    </div>
-    <div class="stat">
-      <div class="stat-n"><span class="g">4</span></div>
-      <div class="stat-l">Languages spoken</div>
-    </div>
-    <div class="stat">
-      <div class="stat-n">100<span class="g">%</span></div>
-      <div class="stat-l">AI-powered builds</div>
-    </div>
+    <div class="stat"><div class="stat-n"><span class="g">2</span></div><div class="stat-l">Products launched</div></div>
+    <div class="stat"><div class="stat-n"><span class="g">4</span></div><div class="stat-l">Languages spoken</div></div>
+    <div class="stat"><div class="stat-n"><span class="g">100%</span></div><div class="stat-l">AI-powered builds</div></div>
   </div>
 </div>
 
@@ -838,23 +445,39 @@
       <h2 class="s-title reveal">Products I've built</h2>
       <p class="s-lead reveal">I identify gaps in the market and build products to fill them. Here's what I've shipped so far.</p>
     </div>
-
     <div class="projects-grid">
       <a class="proj-card reveal" href="https://van7-moldova.com/" target="_blank" rel="noopener">
-        <h3 class="proj-title">VAN7 Moldova <span class="proj-type-inline">Digital Agency</span></h3>
-        <p class="proj-desc">Moldova's digital agency helping local brands compete online. From brand identity to full digital presence — I founded VAN7 to bridge the gap between Moldovan businesses and modern marketing.</p>
+        <div class="proj-header">
+          <div class="proj-type-tag">Digital Agency</div>
+        </div>
+        <div>
+          <h3 class="proj-title">VAN7 Moldova</h3>
+          <p class="proj-desc">Moldova's first dedicated digital agency connecting local brands with modern marketing. Founded to close the gap between Moldovan businesses and professional digital presence — from brand identity to full-scale campaigns.</p>
+        </div>
         <div class="proj-foot">
           <span class="proj-url">van7-moldova.com</span>
-          <div class="proj-btn">↗</div>
+          <div class="proj-btn">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 13L13 3M13 3H7M13 3v6"/>
+            </svg>
+          </div>
         </div>
       </a>
-
       <a class="proj-card reveal" href="https://freelance-moldova.com/" target="_blank" rel="noopener">
-        <h3 class="proj-title">Freelance Moldova <span class="proj-type-inline">Marketplace</span></h3>
-        <p class="proj-desc">The first free freelance marketplace built for Moldova — connecting local talent with clients. Already live with real registered users. Built entirely with AI tools, zero traditional code.</p>
+        <div class="proj-header">
+          <div class="proj-type-tag">Marketplace</div>
+        </div>
+        <div>
+          <h3 class="proj-title">Freelance Moldova</h3>
+          <p class="proj-desc">The first free freelance marketplace built for Moldova — connecting local talent with clients. Live with real registered users. Spotted an empty niche, built the platform, grew the community from zero.</p>
+        </div>
         <div class="proj-foot">
           <span class="proj-url">freelance-moldova.com</span>
-          <div class="proj-btn">↗</div>
+          <div class="proj-btn">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 13L13 3M13 3H7M13 3v6"/>
+            </svg>
+          </div>
         </div>
       </a>
     </div>
@@ -868,65 +491,47 @@
       <div>
         <h2 class="s-title reveal">Who I am</h2>
         <div class="about-copy reveal">
-          <p>I'm a <strong>medical student from Moldova</strong> who builds internet products on the side — and honestly loves it more than anything.</p>
-          <p>My edge isn't writing code. It's <strong>spotting a problem nobody solved yet</strong>, moving fast, and using modern AI tools to ship something real.</p>
-          <p>I speak <strong>4 languages</strong>, think about monetisation from day one, and I'm always looking for the next gap in the market.</p>
+          <p>I'm a <strong>product builder from Moldova</strong> — someone who gets genuinely excited about spotting problems that don't have good solutions yet.</p>
+          <p>My edge isn't writing code. It's <strong>seeing the gap before anyone else</strong>, moving fast, and using the right modern tools to ship something real that people actually use.</p>
+          <p>I'm fluent in <strong>4 languages</strong> and comfortable working across Eastern European markets. I think about growth and monetisation from day one — because a product that doesn't sustain itself isn't really a product.</p>
         </div>
-
         <div class="langs reveal">
           <div class="langs-label">Languages</div>
           <div class="langs-row">
-            <div class="lang-pill">
-              <img class="lang-flag" src="https://flagcdn.com/w40/ua.png" alt="Ukraine flag">
-              <span class="lang-name">Ukrainian</span>
-              <span class="lang-level">Native</span>
-            </div>
-            <div class="lang-pill">
-              <img class="lang-flag" src="https://flagcdn.com/w40/ru.png" alt="Russia flag">
-              <span class="lang-name">Russian</span>
-              <span class="lang-level">Native</span>
-            </div>
-            <div class="lang-pill">
-              <img class="lang-flag" src="https://flagcdn.com/w40/gb.png" alt="UK flag">
-              <span class="lang-name">English</span>
-              <span class="lang-level">Fluent</span>
-            </div>
-            <div class="lang-pill">
-              <img class="lang-flag" src="https://flagcdn.com/w40/ro.png" alt="Romania flag">
-              <span class="lang-name">Romanian</span>
-              <span class="lang-level">Conversational</span>
-            </div>
+            <div class="lang-pill"><img class="lang-flag" src="https://flagcdn.com/w40/ua.png" alt="UA"><span class="lang-name">Ukrainian</span><span class="lang-level">Native</span></div>
+            <div class="lang-pill"><img class="lang-flag" src="https://flagcdn.com/w40/ru.png" alt="RU"><span class="lang-name">Russian</span><span class="lang-level">Native</span></div>
+            <div class="lang-pill"><img class="lang-flag" src="https://flagcdn.com/w40/gb.png" alt="GB"><span class="lang-name">English</span><span class="lang-level">Fluent</span></div>
+            <div class="lang-pill"><img class="lang-flag" src="https://flagcdn.com/w40/ro.png" alt="RO"><span class="lang-name">Romanian</span><span class="lang-level">Conversational</span></div>
           </div>
         </div>
       </div>
-
       <div class="about-steps reveal">
         <div class="step">
           <div class="step-n">01</div>
           <div>
-            <div class="step-title">Find the gap</div>
-            <p class="step-text">Moldova's freelance market had no platform. Moldova's brands had no local digital agency. I built both.</p>
+            <div class="step-title">Opportunity first</div>
+            <p class="step-text">I start with the market, not the idea. If a real gap exists and people feel the pain — that's where I build.</p>
           </div>
         </div>
         <div class="step">
           <div class="step-n">02</div>
           <div>
-            <div class="step-title">Ship fast with AI</div>
-            <p class="step-text">I use AI tools to build and iterate at speed no traditional developer can match.</p>
+            <div class="step-title">Speed over perfection</div>
+            <p class="step-text">Using AI and no-code tools I move faster than traditional teams. A live product beats a perfect spec every time.</p>
           </div>
         </div>
         <div class="step">
           <div class="step-n">03</div>
           <div>
-            <div class="step-title">Grow to real users</div>
-            <p class="step-text">Building is the easy part. I focus on distribution and making products people return to.</p>
+            <div class="step-title">Distribution is the product</div>
+            <p class="step-text">Getting users is harder than building. I treat growth, community, and retention as core features — not afterthoughts.</p>
           </div>
         </div>
         <div class="step">
           <div class="step-n">04</div>
           <div>
-            <div class="step-title">Monetise from day one</div>
-            <p class="step-text">Every product I build has a clear path to revenue — even free launches are designed to be sustainable.</p>
+            <div class="step-title">Built to sustain</div>
+            <p class="step-text">Every product I build has a revenue path designed in from the start. Free can be a strategy — dependency isn't.</p>
           </div>
         </div>
       </div>
@@ -938,38 +543,49 @@
 <section id="skills">
   <div class="wrap">
     <h2 class="s-title reveal">What I bring</h2>
-    <p class="s-lead reveal">No traditional dev background — just sharp product instinct and the right modern tools.</p>
-
-    <div class="skills-grid">
+    <p class="s-lead reveal">Sharp product thinking, fast execution, and the ability to speak to users, stakeholders, and markets in four languages.</p>
+    <div class="skills-grid reveal">
       <div class="skill-card reveal">
-        <div class="skill-num">01</div>
-        <div class="skill-title">Market Research</div>
-        <p class="skill-text">Finding underserved niches before anyone else notices them.</p>
+        <span class="skill-icon">
+          <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg>
+        </span>
+        <div class="skill-title">Market Discovery</div>
+        <p class="skill-text">Spotting underserved niches before they become obvious. Two Moldova-first platforms nobody else was building.</p>
       </div>
       <div class="skill-card reveal">
-        <div class="skill-num">02</div>
-        <div class="skill-title">Product Launch</div>
-        <p class="skill-text">From idea to live product with real users — fast.</p>
+        <span class="skill-icon">
+          <svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        </span>
+        <div class="skill-title">Rapid Execution</div>
+        <p class="skill-text">Idea to live product in weeks. AI-powered workflow that beats traditional dev timelines consistently.</p>
       </div>
       <div class="skill-card reveal">
-        <div class="skill-num">03</div>
-        <div class="skill-title">AI-Powered Building</div>
-        <p class="skill-text">Full products using modern AI tools without traditional coding.</p>
+        <span class="skill-icon">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+        </span>
+        <div class="skill-title">Product Thinking</div>
+        <p class="skill-text">User needs, feature prioritisation, roadmap decisions. I think like a PM and ship like a founder.</p>
       </div>
       <div class="skill-card reveal">
-        <div class="skill-num">04</div>
-        <div class="skill-title">Growth Thinking</div>
-        <p class="skill-text">Distribution, retention, and sustainable growth from day one.</p>
+        <span class="skill-icon">
+          <svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+        </span>
+        <div class="skill-title">Growth & Distribution</div>
+        <p class="skill-text">Building audiences, community, and retention loops. Getting people to come back is the real product.</p>
       </div>
       <div class="skill-card reveal">
-        <div class="skill-num">05</div>
+        <span class="skill-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        </span>
         <div class="skill-title">4 Languages</div>
-        <p class="skill-text">Ukrainian, Russian, English, Romanian — across markets.</p>
+        <p class="skill-text">Ukrainian, Russian, English, Romanian. Cross-market communication without friction.</p>
       </div>
       <div class="skill-card reveal">
-        <div class="skill-num">06</div>
-        <div class="skill-title">Monetisation Design</div>
-        <p class="skill-text">Revenue paths built into every product from the beginning.</p>
+        <span class="skill-icon">
+          <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        </span>
+        <div class="skill-title">Monetisation Strategy</div>
+        <p class="skill-text">Revenue models, pricing logic, sustainability. Every product I touch has a business model baked in.</p>
       </div>
     </div>
   </div>
@@ -980,12 +596,14 @@
   <div class="wrap">
     <div class="contact-box reveal">
       <h2 class="s-title">Let's work together</h2>
-      <p class="s-lead">Looking for a product-minded PM or digital entrepreneur? I'm open to conversations.</p>
+      <p class="s-lead">Looking for a product-minded PM, a digital entrepreneur, or someone to launch something new in Eastern Europe? I'm open.</p>
       <div class="c-btns">
-        <a href="mailto:hello@findlyten.com" class="c-btn c-green">Email me</a>
+        <a href="mailto:maxsmirnov428@gmail.com" class="c-btn c-green">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg>
+          Email me
+        </a>
         <a href="https://t.me/findlyten" target="_blank" rel="noopener" class="c-btn c-ghost">Telegram</a>
         <a href="https://github.com/FindlyTen" target="_blank" rel="noopener" class="c-btn c-ghost">GitHub</a>
-        <a href="https://linkedin.com/in/" target="_blank" rel="noopener" class="c-btn c-ghost">LinkedIn</a>
       </div>
     </div>
   </div>
@@ -995,51 +613,87 @@
   <div class="wrap">
     <div class="foot-inner">
       <p class="foot-l"><strong>Maxim Smirnov</strong> — Product Builder & Digital Entrepreneur</p>
-      <p class="foot-r">Moldova · Open to remote · 2026</p>
+      <p class="foot-r">Moldova · Open to remote</p>
     </div>
   </div>
 </footer>
 
+<div class="cursor-glow" id="cursor-glow"></div>
+
 <script>
+  // SCROLL PROGRESS
+  const progress = document.getElementById('progress');
+  window.addEventListener('scroll', () => {
+    const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100;
+    progress.style.width = pct + '%';
+    document.querySelector('nav').classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // COUNT-UP for stats
+  function countUp(el, target, duration) {
+    let start = 0, step = target / (duration / 16);
+    el.classList.add('counted');
+    const tick = () => {
+      start = Math.min(start + step, target);
+      el.textContent = (target === 100 ? Math.round(start) + '%' : Math.round(start));
+      if (start < target) requestAnimationFrame(tick);
+    };
+    tick();
+  }
+
+  // SCROLL REVEAL with special handling
   const obs = new IntersectionObserver((entries) => {
-    let d = 0;
     entries.forEach(e => {
-      if (e.isIntersecting) {
-        setTimeout(() => e.target.classList.add('in'), d);
-        d += 70;
-        obs.unobserve(e.target);
-      }
+      if (!e.isIntersecting) return;
+      e.target.classList.add('in');
+      obs.unobserve(e.target);
     });
   }, { threshold: 0.08 });
 
   document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
-</script>
 
+  // Stats count-up trigger
+  const statsObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      const nums = e.target.querySelectorAll('.stat-n .g');
+      const targets = [2, 4, 100];
+      nums.forEach((el, i) => {
+        setTimeout(() => countUp(el, targets[i], 900), i * 200);
+      });
+      statsObs.unobserve(e.target);
+    });
+  }, { threshold: 0.3 });
 
-<div class="cursor" id="cursor-ring"><div class="cursor-ring"></div></div>
-<div class="cursor" id="cursor-dot"><div class="cursor-dot"></div></div>
+  const statsEl = document.querySelector('.stats');
+  if (statsEl) statsObs.observe(statsEl);
 
-<script>
-  const dot = document.getElementById('cursor-dot');
-  const ring = document.getElementById('cursor-ring');
-  let mx = 0, my = 0, rx = 0, ry = 0;
+  // HERO line-by-line reveal (safe, no HTML breakage)
+  const h1 = document.getElementById('hero-h1');
+  if (h1) {
+    const lines = ['Building', 'digital', 'products'];
+    h1.innerHTML = lines.map((line, i) => {
+      const delay = i * 150 + 100;
+      if (i === 1) {
+        return `<span class="word line-green" style="font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;letter-spacing:-0.02em;animation-delay:${delay}ms">${line}</span>`;
+      }
+      return `<span class="word" style="animation-delay:${delay}ms">${line}</span>`;
+    }).join('<br>');
+  }
 
-  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
-
-  // dot follows instantly
-  document.addEventListener('mousemove', e => {
-    dot.style.left = e.clientX + 'px';
-    dot.style.top = e.clientY + 'px';
-  });
-
-  // ring follows with lag
+  // CURSOR GLOW
+  const glow = document.getElementById('cursor-glow');
+  let cx = 0, cy = 0, tx = 0, ty = 0;
+  document.addEventListener('mousemove', e => { tx = e.clientX; ty = e.clientY; });
   (function loop() {
-    rx += (mx - rx) * 0.12;
-    ry += (my - ry) * 0.12;
-    ring.style.left = rx + 'px';
-    ring.style.top = ry + 'px';
+    cx += (tx - cx) * 0.15; cy += (ty - cy) * 0.15;
+    glow.style.left = cx + 'px'; glow.style.top = cy + 'px';
     requestAnimationFrame(loop);
   })();
+  document.querySelectorAll('a, button, .proj-card, .skill-card, .lang-pill').forEach(el => {
+    el.addEventListener('mouseenter', () => glow.classList.add('big'));
+    el.addEventListener('mouseleave', () => glow.classList.remove('big'));
+  });
 </script>
 </body>
 </html>
