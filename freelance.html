@@ -282,7 +282,7 @@
   const glow = document.getElementById('cursor-glow');
   let cx=0,cy=0,tx=0,ty=0;
   document.addEventListener('mousemove', e => { tx=e.clientX; ty=e.clientY; });
-  (function loop(){ cx+=(tx-cx)*0.15; cy+=(ty-cy)*0.15; glow.style.left=cx+'px'; glow.style.top=cy+'px'; requestAnimationFrame(loop); })();
+  (function loop(){ cx+=(tx-cx)*0.45; cy+=(ty-cy)*0.45; glow.style.left=cx+'px'; glow.style.top=cy+'px'; requestAnimationFrame(loop); })();
   document.querySelectorAll('a,button').forEach(el => {
     el.addEventListener('mouseenter', () => glow.classList.add('big'));
     el.addEventListener('mouseleave', () => glow.classList.remove('big'));
