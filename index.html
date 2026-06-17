@@ -85,6 +85,14 @@
       border-radius:8px; text-decoration:none; transition:border-color 0.2s,background 0.2s,transform 0.15s;
     }
     .btn-line:hover { border-color:var(--g4); background:var(--g1); transform:translateY(-1px); }
+    .btn-resume {
+      display:inline-flex; align-items:center; gap:7px;
+      border:1.5px solid rgba(24,201,82,0.4); color:var(--green-d);
+      font-size:14px; font-weight:600; padding:12px 22px; border-radius:8px;
+      text-decoration:none; background:var(--green-pale);
+      transition:border-color 0.2s,background 0.2s,transform 0.15s;
+    }
+    .btn-resume:hover { border-color:var(--green); background:rgba(24,201,82,0.12); transform:translateY(-1px); }
 
     /* PHOTO */
     .hero-right { opacity:0; animation:fadeUp 0.8s var(--ease-out) 0.3s forwards; }
@@ -170,6 +178,14 @@
       transition:background 0.2s,transform 0.25s var(--ease-spring);
     }
     .proj-btn svg { width:14px; height:14px; stroke:var(--g5); transition:stroke 0.2s; }
+    .proj-case-link {
+      display:inline-flex; align-items:center; gap:5px;
+      font-size:12px; font-weight:600; color:var(--green);
+      letter-spacing:0.04em; text-decoration:none;
+      transition:gap 0.2s; margin-left:auto;
+    }
+    .proj-case-link:hover { gap:8px; }
+    .proj-case-link svg { width:12px; height:12px; }
     .proj-card:hover .proj-btn { background:var(--green); transform:scale(1.12); }
     .proj-card:hover .proj-btn svg { stroke:#fff; }
 
@@ -468,6 +484,44 @@
     .skills-grid.in .skill-card:nth-child(4){transition-delay:240ms}
     .skills-grid.in .skill-card:nth-child(5){transition-delay:320ms}
     .skills-grid.in .skill-card:nth-child(6){transition-delay:400ms}
+
+    /* EXPERIENCE */
+    .exp-item {
+      padding:36px 0; border-top:1px solid var(--g3); position:relative;
+    }
+    .exp-item::before {
+      content:''; position:absolute; top:0; left:0; right:0; height:1px;
+      background:linear-gradient(90deg,rgba(24,201,82,0.6),rgba(24,201,82,0.1));
+      box-shadow:0 0 6px rgba(24,201,82,0.4);
+    }
+    .exp-header { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:14px; flex-wrap:wrap; gap:10px; }
+    .exp-role { font-size:18px; font-weight:700; color:var(--g7); letter-spacing:-0.02em; margin-bottom:4px; }
+    .exp-company { display:flex; align-items:center; gap:10px; }
+    .exp-company a { font-size:14px; color:var(--green-d); font-weight:600; text-decoration:none; border-bottom:1px solid rgba(24,201,82,0.3); transition:border-color 0.2s; }
+    .exp-company a:hover { border-color:var(--green); }
+    .exp-tag { font-size:11px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:var(--green-d); background:var(--green-pale); padding:3px 9px; border-radius:5px; }
+    .exp-date { font-size:13px; color:var(--g4); font-weight:500; white-space:nowrap; }
+    .exp-desc { font-size:15px; font-weight:300; color:var(--g5); line-height:1.75; }
+
+    /* CREDENTIALS */
+    .cred-card {
+      background:var(--g0); border:1.5px solid rgba(24,201,82,0.35); border-radius:16px;
+      padding:40px; position:relative; overflow:hidden;
+      box-shadow:0 0 28px rgba(24,201,82,0.08), 0 0 6px rgba(24,201,82,0.06);
+    }
+    .cred-card::before {
+      content:''; position:absolute; top:0; left:0; right:0; height:3px;
+      background:linear-gradient(90deg,var(--green),rgba(24,201,82,0.2));
+      box-shadow:0 0 12px rgba(24,201,82,0.5);
+    }
+    .cred-orgs { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:14px; }
+    .cred-org { font-size:12px; font-weight:600; color:var(--green-d); letter-spacing:0.02em; }
+    .cred-dot { color:var(--g4); font-size:12px; }
+    .cred-title { font-family:'Space Grotesk',sans-serif; font-size:24px; font-weight:700; color:var(--g7); letter-spacing:-0.03em; margin-bottom:6px; }
+    .cred-date { font-size:13px; color:var(--g4); font-weight:500; margin-bottom:16px; font-style:italic; }
+    .cred-desc { font-size:15px; font-weight:300; color:var(--g5); line-height:1.75; margin-bottom:24px; }
+    .cred-skills { display:flex; gap:8px; flex-wrap:wrap; }
+    .cred-skill { font-size:12px; font-weight:600; color:var(--green-d); background:var(--green-pale); padding:4px 12px; border-radius:6px; letter-spacing:0.03em; }
   </style>
 </head>
 <body>
@@ -481,8 +535,9 @@
     </div>
     <ul class="nav-links">
       <li><a href="#projects">Projects</a></li>
-      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
       <li><a href="#skills">Skills</a></li>
+      <li><a href="#credentials">Credentials</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
     <a href="#contact" class="nav-hire">Hire me</a>
@@ -493,8 +548,9 @@
 </nav>
 <div class="mobile-nav" id="mobileNav">
   <a href="#projects" onclick="closeMobileMenu()">Projects</a>
-  <a href="#about" onclick="closeMobileMenu()">About</a>
+  <a href="#experience" onclick="closeMobileMenu()">Experience</a>
   <a href="#skills" onclick="closeMobileMenu()">Skills</a>
+  <a href="#credentials" onclick="closeMobileMenu()">Credentials</a>
   <a href="#contact" onclick="closeMobileMenu()">Contact</a>
   <a href="#contact" onclick="closeMobileMenu()" style="color:var(--green);margin-top:16px">Hire me ↗</a>
 </div>
@@ -507,6 +563,10 @@
       <div class="hero-btns">
         <a href="#projects" class="btn-dark">See projects</a>
         <a href="#contact" class="btn-line">Let's talk</a>
+        <a href="Maxim_Smirnov_Resume.pdf" download class="btn-resume">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Resume PDF
+        </a>
       </div>
     </div>
     <div class="hero-right">
@@ -541,6 +601,10 @@
         <span class="proj-learn">Learn more</span>
         <div class="proj-foot">
           <span class="proj-url">van7-moldova.com</span>
+          <a href="van7.html" class="proj-case-link" onclick="event.stopPropagation()">
+            Case study
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3l6 5-6 5"/></svg>
+          </a>
           <div class="proj-btn">
             <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <path d="M3 13L13 3M13 3H7M13 3v6"/>
@@ -559,6 +623,10 @@
         <span class="proj-learn">Learn more</span>
         <div class="proj-foot">
           <span class="proj-url">freelance-moldova.com</span>
+          <a href="freelance.html" class="proj-case-link" onclick="event.stopPropagation()">
+            Case study
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3l6 5-6 5"/></svg>
+          </a>
           <div class="proj-btn">
             <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <path d="M3 13L13 3M13 3H7M13 3v6"/>
@@ -672,6 +740,62 @@
         </span>
         <div class="skill-title">Monetisation Strategy</div>
         <p class="skill-text">Revenue models, pricing logic, sustainability. Every product I touch has a business model baked in.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- EXPERIENCE -->
+<section id="experience" style="padding:100px 0; border-top:1px solid var(--g2);">
+  <div class="wrap">
+    <h2 class="s-title reveal">Experience</h2>
+    <p class="s-lead reveal">Beyond my own products — professional work and collaborations.</p>
+
+    <div style="margin-top:52px; display:grid; gap:0;">
+
+      <div class="exp-item reveal">
+        <div class="exp-header">
+          <div>
+            <div class="exp-role">Content Writer & Junior Editor</div>
+            <div class="exp-company">
+              <a href="https://itc.ua" target="_blank" rel="noopener">ITC.ua</a>
+              <span class="exp-tag">Tech Media</span>
+            </div>
+          </div>
+          <div class="exp-date">2026 · 3 months</div>
+        </div>
+        <p class="exp-desc">Covered daily technology news across AI, gadgets, research, and digital innovation for one of Ukraine's leading tech publications. Managed content lifecycle in WordPress CMS — from research and writing to publishing and SEO optimisation. Developed a systematic approach to sourcing credible information fast, turning complex technical topics into accessible content for a broad audience. Published consistently across weekdays and weekends under editorial deadlines.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CREDENTIALS -->
+<section id="credentials" style="padding:100px 0; background:var(--g1);">
+  <div class="wrap">
+    <h2 class="s-title reveal">Credentials</h2>
+    <p class="s-lead reveal">Recognised participation in international programmes and initiatives.</p>
+
+    <div style="margin-top:52px;">
+      <div class="cred-card reveal">
+        <div class="cred-orgs">
+          <span class="cred-org">Women's Refugee Commission</span>
+          <span class="cred-dot">·</span>
+          <span class="cred-org">Global Refugee Youth Network</span>
+          <span class="cred-dot">·</span>
+          <span class="cred-org">Norwegian Refugee Council</span>
+        </div>
+        <h3 class="cred-title">GRYN Ukraine Youth Action Fund</h3>
+        <p class="cred-date">December 2023 – April 2024</p>
+        <p class="cred-desc">Led and managed the implementation of a community project under the GRYN Ukraine Youth Action Fund — an international grant programme supporting youth-led initiatives. Coordinated the English Clubs "Mimosa" project providing accessible English language learning to underserved communities. Responsible for fund management, project planning, team coordination, and reporting to international stakeholders. Participated in leadership workshops organised by the Global Refugee Youth Network.</p>
+        <div class="cred-skills">
+          <span class="cred-skill">Project Management</span>
+          <span class="cred-skill">Fund Management</span>
+          <span class="cred-skill">Community Leadership</span>
+          <span class="cred-skill">International Reporting</span>
+        </div>
       </div>
     </div>
   </div>
