@@ -152,42 +152,35 @@
     .proj-title { font-size:26px; font-weight:700; letter-spacing:-0.03em; color:var(--g7); line-height:1.1; }
     .proj-desc { font-size:15px; font-weight:300; color:var(--g5); line-height:1.72; padding:14px 0 28px; }
     .proj-foot {
-      display:flex; align-items:center; justify-content:space-between;
-      padding-top:18px; border-top:1px solid var(--g2);
+      display:flex; align-items:center; gap:10px;
+      padding-top:20px; border-top:1px solid var(--g2);
+      flex-wrap:wrap;
     }
-    .proj-url { 
-      font-size:13px; color:var(--green-d); font-weight:600;
-      transition:color 0.2s, letter-spacing 0.2s;
-      position:relative;
+    .btn-visit {
+      display:inline-flex; align-items:center;
+      font-size:13px; font-weight:600; color:var(--g6);
+      background:var(--g2); border:1.5px solid var(--g3);
+      padding:9px 18px; border-radius:7px; text-decoration:none;
+      transition:border-color 0.2s, background 0.2s, transform 0.15s;
     }
-    .proj-url::after {
-      content:'';
-      position:absolute; bottom:-2px; left:0;
-      height:1px; width:0;
-      background:var(--green);
-      box-shadow:0 0 6px rgba(24,201,82,0.5);
-      transition:width 0.3s var(--ease-out);
+    .btn-visit:hover {
+      border-color:rgba(24,201,82,0.4); background:var(--green-pale);
+      color:var(--green-d); transform:translateY(-1px);
     }
-    .proj-card:hover .proj-url { color:var(--green); }
-    .proj-card:hover .proj-url::after { width:100%; }
+    .btn-case {
+      display:inline-flex; align-items:center;
+      font-size:13px; font-weight:600; color:#fff;
+      background:var(--green); 
+      padding:9px 18px; border-radius:7px; text-decoration:none;
+      transition:background 0.2s, transform 0.15s, box-shadow 0.2s;
+    }
+    .btn-case:hover {
+      background:var(--green-d); transform:translateY(-1px);
+      box-shadow:0 4px 16px rgba(24,201,82,0.3);
+    }
 
     /* Project button — open icon, not arrow */
-    .proj-btn {
-      width:34px; height:34px; border-radius:8px; background:var(--g2);
-      display:flex; align-items:center; justify-content:center;
-      transition:background 0.2s,transform 0.25s var(--ease-spring);
-    }
-    .proj-btn svg { width:14px; height:14px; stroke:var(--g5); transition:stroke 0.2s; }
-    .proj-case-link {
-      display:inline-flex; align-items:center; gap:5px;
-      font-size:12px; font-weight:600; color:var(--green);
-      letter-spacing:0.04em; text-decoration:none;
-      transition:gap 0.2s; margin-left:auto;
-    }
-    .proj-case-link:hover { gap:8px; }
-    .proj-case-link svg { width:12px; height:12px; }
-    .proj-card:hover .proj-btn { background:var(--green); transform:scale(1.12); }
-    .proj-card:hover .proj-btn svg { stroke:#fff; }
+
 
     /* ABOUT */
     #about { padding:100px 0; }
@@ -339,21 +332,7 @@
     }
     .mobile-nav a:hover { color:var(--green); background:var(--green-pale); }
 
-    /* LEARN MORE on project cards */
-    .proj-learn {
-      display:inline-flex; align-items:center; gap:5px;
-      font-size:12px; font-weight:600; color:var(--green);
-      letter-spacing:0.06em; text-transform:uppercase;
-      margin-top:10px;
-      transition:gap 0.2s var(--ease-spring), color 0.2s;
-    }
-    .proj-learn::after {
-      content:'→';
-      display:inline-block;
-      transition:transform 0.2s var(--ease-spring);
-    }
-    .proj-card:hover .proj-learn { gap:8px; }
-    .proj-card:hover .proj-learn::after { transform:translateX(3px); }
+
 
     /* MOBILE */
     @media (max-width:860px) {
@@ -514,6 +493,11 @@
       background:linear-gradient(90deg,var(--green),rgba(24,201,82,0.2));
       box-shadow:0 0 12px rgba(24,201,82,0.5);
     }
+    .cred-img-wrap {
+      border-radius:10px; overflow:hidden; margin-bottom:24px;
+      border:1px solid var(--g3);
+    }
+    .cred-img { width:100%; display:block; }
     .cred-orgs { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:14px; }
     .cred-org { font-size:12px; font-weight:600; color:var(--green-d); letter-spacing:0.02em; }
     .cred-dot { color:var(--g4); font-size:12px; }
@@ -552,7 +536,7 @@
   <a href="#skills" onclick="closeMobileMenu()">Skills</a>
   <a href="#credentials" onclick="closeMobileMenu()">Credentials</a>
   <a href="#contact" onclick="closeMobileMenu()">Contact</a>
-  <a href="#contact" onclick="closeMobileMenu()" style="color:var(--green);margin-top:16px">Hire me ↗</a>
+  <a href="#contact" onclick="closeMobileMenu()" style="color:var(--green);margin-top:16px">Hire me</a>
 </div>
 
 <div class="wrap">
@@ -780,6 +764,9 @@
 
     <div style="margin-top:52px;">
       <div class="cred-card reveal">
+        <div class="cred-img-wrap">
+          <img src="certificate.jpg" alt="GRYN Ukraine Youth Action Fund Certificate" class="cred-img">
+        </div>
         <div class="cred-orgs">
           <span class="cred-org">Women's Refugee Commission</span>
           <span class="cred-dot">·</span>
@@ -814,6 +801,7 @@
         </a>
         <a href="https://t.me/findlyten" target="_blank" rel="noopener" class="c-btn c-ghost">Telegram</a>
         <a href="https://github.com/FindlyTen" target="_blank" rel="noopener" class="c-btn c-ghost">GitHub</a>
+        <a href="https://www.linkedin.com/in/maxim-smirnov-van7/" target="_blank" rel="noopener" class="c-btn c-ghost">LinkedIn</a>
       </div>
     </div>
   </div>
