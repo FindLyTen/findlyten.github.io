@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Freelance Moldova — Case Study · Maxim Smirnov</title>
+  <meta name="description" content="How I built Moldova's first freelance marketplace from scratch — tech stack, architecture, monetisation, and results.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%230f0f0e'/><circle cx='16' cy='16' r='8' fill='%2318c952'/><circle cx='16' cy='16' r='4' fill='%230f0f0e'/></svg>">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --g0:#ffffff; --g1:#f7f7f5; --g2:#eeeeed; --g3:#dededd;
+      --g4:#ababaa; --g5:#606060; --g6:#282826; --g7:#0f0f0e;
+      --green:#18c952; --green-d:#12a340; --green-pale:#e6f9ed;
+      --ease-out:cubic-bezier(0.16,1,0.3,1);
+    }
+    html { scroll-behavior:smooth; }
+    body { font-family:'Space Grotesk',system-ui,sans-serif; background:var(--g0); color:var(--g7); font-size:17px; line-height:1.6; -webkit-font-smoothing:antialiased; overflow-x:hidden; }
+
+    /* NAV */
+    nav { position:fixed; top:0; left:0; right:0; z-index:100; height:58px; }
+    nav::before { content:''; position:absolute; inset:0; background:rgba(255,255,255,0.88); backdrop-filter:blur(18px); border-bottom:1px solid var(--g2); z-index:-1; }
+    .nav-inner { max-width:800px; margin:0 auto; padding:0 40px; height:100%; display:flex; align-items:center; justify-content:space-between; }
+    .nav-back { display:inline-flex; align-items:center; gap:8px; font-size:14px; font-weight:600; color:var(--g5); text-decoration:none; transition:color 0.2s; }
+    .nav-back:hover { color:var(--green); }
+    .nav-back svg { width:16px; height:16px; }
+    .nav-right { font-size:13px; color:var(--g4); }
+
+    /* WRAP */
+    .wrap { max-width:800px; margin:0 auto; padding:0 40px; }
+
+    /* HERO */
+    .hero { padding:120px 0 60px; }
+    .hero-tag { display:inline-flex; align-items:center; gap:8px; background:var(--green-pale); border:1px solid rgba(24,201,82,0.25); border-radius:100px; padding:5px 14px; font-size:12px; font-weight:600; color:var(--green-d); letter-spacing:0.06em; text-transform:uppercase; margin-bottom:24px; }
+    .hero h1 { font-family:'Space Grotesk',sans-serif; font-size:clamp(36px,5vw,60px); font-weight:700; letter-spacing:-0.04em; color:var(--g7); line-height:1.05; margin-bottom:20px; }
+    .hero h1 span { color:var(--green); font-family:'Instrument Serif',serif; font-style:italic; font-weight:400; }
+    .hero-sub { font-size:18px; font-weight:300; color:var(--g5); line-height:1.7; max-width:600px; margin-bottom:40px; }
+    .hero-meta { display:flex; gap:32px; flex-wrap:wrap; padding-top:32px; border-top:1px solid var(--g3); }
+    .meta-item { display:flex; flex-direction:column; gap:4px; }
+    .meta-label { font-size:11px; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:var(--g4); }
+    .meta-value { font-size:14px; font-weight:600; color:var(--g7); }
+    .meta-value a { color:var(--green-d); text-decoration:none; border-bottom:1px solid rgba(24,201,82,0.3); }
+
+    /* STATS ROW */
+    .stats-row { display:grid; grid-template-columns:repeat(4,1fr); gap:2px; margin:60px 0; }
+    .stat-box { background:var(--g1); border:1px solid var(--g3); padding:24px 20px; border-radius:12px; text-align:center; }
+    .stat-box:first-child { border:1.5px solid rgba(24,201,82,0.4); box-shadow:0 0 20px rgba(24,201,82,0.1); }
+    .stat-big { font-family:'Space Grotesk',sans-serif; font-size:36px; font-weight:700; color:var(--green); letter-spacing:-0.04em; line-height:1; margin-bottom:6px; }
+    .stat-desc { font-size:12px; color:var(--g4); font-weight:500; }
+
+    /* CONTENT */
+    .content { padding:20px 0 80px; }
+    .section { margin-bottom:60px; }
+    .section-title { font-family:'Space Grotesk',sans-serif; font-size:22px; font-weight:700; color:var(--g7); letter-spacing:-0.03em; margin-bottom:16px; padding-bottom:12px; border-bottom:1px solid; border-image:linear-gradient(90deg,rgba(24,201,82,0.7),rgba(24,201,82,0.1)) 1; position:relative; }
+    .section-title::after { content:''; position:absolute; bottom:-1px; left:0; width:60px; height:2px; background:var(--green); box-shadow:0 0 8px rgba(24,201,82,0.5); }
+    p { font-size:16px; font-weight:300; color:var(--g5); line-height:1.8; margin-bottom:14px; }
+    p strong { color:var(--g7); font-weight:600; }
+
+    /* TECH STACK */
+    .tech-grid { display:flex; flex-wrap:wrap; gap:8px; margin-top:16px; }
+    .tech-tag { font-size:12px; font-weight:600; color:var(--g6); background:var(--g2); border:1px solid var(--g3); padding:6px 14px; border-radius:6px; letter-spacing:0.02em; transition:border-color 0.2s,background 0.2s; }
+    .tech-tag:hover { border-color:rgba(24,201,82,0.4); background:var(--green-pale); color:var(--green-d); }
+    .tech-tag.highlight { background:var(--green-pale); border-color:rgba(24,201,82,0.3); color:var(--green-d); }
+
+    /* FEATURE LIST */
+    .feature-list { display:grid; gap:12px; margin-top:16px; }
+    .feature-item { display:grid; grid-template-columns:20px 1fr; gap:12px; align-items:start; padding:14px 0; border-top:1px solid var(--g2); }
+    .feature-item:first-child { border-top:none; padding-top:0; }
+    .feature-dot { width:6px; height:6px; border-radius:50%; background:var(--green); box-shadow:0 0 6px rgba(24,201,82,0.5); margin-top:7px; }
+    .feature-text { font-size:15px; font-weight:300; color:var(--g5); line-height:1.65; }
+    .feature-text strong { color:var(--g7); font-weight:600; }
+
+    /* MONETISATION BOX */
+    .mono-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:20px; }
+    .mono-card { background:var(--g1); border:1.5px solid var(--g3); border-radius:12px; padding:24px; transition:border-color 0.2s; }
+    .mono-card:hover { border-color:rgba(24,201,82,0.4); }
+    .mono-price { font-family:'Space Grotesk',sans-serif; font-size:28px; font-weight:700; color:var(--green); letter-spacing:-0.03em; margin-bottom:4px; }
+    .mono-name { font-size:14px; font-weight:700; color:var(--g7); margin-bottom:8px; }
+    .mono-desc { font-size:13px; font-weight:300; color:var(--g5); line-height:1.6; }
+
+    /* BACK TO PORTFOLIO */
+    .back-section { padding:60px 0; border-top:1px solid var(--g2); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; }
+    .btn-back { display:inline-flex; align-items:center; gap:8px; background:var(--g7); color:#fff; font-size:14px; font-weight:600; padding:12px 24px; border-radius:8px; text-decoration:none; transition:background 0.2s,transform 0.15s; }
+    .btn-back:hover { background:var(--g6); transform:translateY(-1px); }
+    .btn-live { display:inline-flex; align-items:center; gap:8px; border:1.5px solid rgba(24,201,82,0.4); color:var(--green-d); font-size:14px; font-weight:600; padding:12px 24px; border-radius:8px; text-decoration:none; background:var(--green-pale); transition:all 0.2s; }
+    .btn-live:hover { border-color:var(--green); transform:translateY(-1px); }
+
+    /* REVEAL */
+    .reveal { opacity:0; transform:translateY(20px); transition:opacity 0.6s var(--ease-out),transform 0.6s var(--ease-out); }
+    .reveal.in { opacity:1; transform:none; }
+
+    /* CURSOR */
+    @media (pointer:fine) { *{cursor:none!important} }
+    .cursor-glow { position:fixed; pointer-events:none; z-index:9999; width:8px; height:8px; transform:translate(-50%,-50%); border-radius:50%; background:#18c952; box-shadow:0 0 4px 1px rgba(24,201,82,0.9),0 0 12px 4px rgba(24,201,82,0.35),0 0 28px 8px rgba(24,201,82,0.12); transition:width 0.25s,height 0.25s; }
+    .cursor-glow.big { width:13px; height:13px; }
+    @media (hover:none) { .cursor-glow{display:none} }
+
+    @media (max-width:640px) {
+      .wrap{padding:0 20px} .stats-row{grid-template-columns:1fr 1fr} .mono-grid{grid-template-columns:1fr}
+      .hero-meta{gap:20px} .back-section{flex-direction:column}
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-back">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      Back to portfolio
+    </a>
+    <span class="nav-right">Case Study</span>
+  </div>
+</nav>
+
+<div class="wrap">
+  <div class="hero">
+    <div class="hero-tag">Case Study · Marketplace</div>
+    <h1>Freelance <span>Moldova</span></h1>
+    <p class="hero-sub">How I identified an untapped niche, built Moldova's first freelance marketplace from scratch, and shipped a production-grade platform — solo, with no budget.</p>
+    <div class="hero-meta">
+      <div class="meta-item">
+        <span class="meta-label">Role</span>
+        <span class="meta-value">Founder & Product Lead</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Period</span>
+        <span class="meta-value">2025 – Present</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Live at</span>
+        <span class="meta-value"><a href="https://freelance-moldova.com" target="_blank">freelance-moldova.com ↗</a></span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Stack</span>
+        <span class="meta-value">Next.js · PostgreSQL · Docker</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats-row reveal">
+    <div class="stat-box">
+      <div class="stat-big">50+</div>
+      <div class="stat-desc">Registered users</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-big">30+</div>
+      <div class="stat-desc">Jobs posted</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-big">13</div>
+      <div class="stat-desc">IT categories</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-big">99.9%</div>
+      <div class="stat-desc">Uptime on VPS</div>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- THE PROBLEM -->
+    <div class="section reveal">
+      <div class="section-title">The problem</div>
+      <p>Moldova's freelance market had no dedicated platform. Local IT specialists looking for clients — and businesses looking for local talent — had nowhere to connect without going through expensive international platforms like Upwork, where Moldova barely registers as a market.</p>
+      <p><strong>The gap was obvious.</strong> A free, Moldovan-first freelance marketplace didn't exist. I decided to build it.</p>
+    </div>
+
+    <!-- MY ROLE -->
+    <div class="section reveal">
+      <div class="section-title">My role</div>
+      <p>I owned every aspect of this product — from initial market research and product definition through technical architecture, implementation, and ongoing growth. No co-founder, no budget, no external team.</p>
+      <div class="feature-list">
+        <div class="feature-item"><div class="feature-dot"></div><div class="feature-text"><strong>Product strategy</strong> — defined the value proposition, user personas, feature prioritisation, and go-to-market approach for the Moldovan market</div></div>
+        <div class="feature-item"><div class="feature-dot"></div><div class="feature-text"><strong>Technical architecture</strong> — designed and built the full stack: Next.js 14 with App Router, PostgreSQL, Prisma ORM, Docker, Nginx, Cloudflare</div></div>
+        <div class="feature-item"><div class="feature-dot"></div><div class="feature-text"><strong>Monetisation design</strong> — researched payment providers for the Moldovan market, integrated PayPal Checkout, designed PRO subscription and boost systems</div></div>
+        <div class="feature-item"><div class="feature-dot"></div><div class="feature-text"><strong>Infrastructure & DevOps</strong> — deployed on VPS (Contabo Ubuntu), Docker Compose orchestration, automated backups, deploy pipeline, SSL, CDN</div></div>
+        <div class="feature-item"><div class="feature-dot"></div><div class="feature-text"><strong>Growth & community</strong> — organic user acquisition, bilingual RU/RO interface, SEO — ranked on first page of Google for "фриланс Молдова"</div></div>
+      </div>
+    </div>
+
+    <!-- TECH STACK -->
+    <div class="section reveal">
+      <div class="section-title">Technical stack</div>
+      <p>Built on a modern, production-grade stack. Every technology choice was deliberate — optimised for developer velocity, scalability, and running lean on a single VPS.</p>
+      <div class="tech-grid">
+        <span class="tech-tag highlight">Next.js 14</span>
+        <span class="tech-tag highlight">TypeScript</span>
+        <span class="tech-tag highlight">PostgreSQL 16</span>
+        <span class="tech-tag highlight">Prisma ORM</span>
+        <span class="tech-tag">NextAuth.js</span>
+        <span class="tech-tag">Tailwind CSS</span>
+        <span class="tech-tag">Docker Compose</span>
+        <span class="tech-tag">Nginx</span>
+        <span class="tech-tag">Cloudflare CDN</span>
+        <span class="tech-tag">PayPal REST API</span>
+        <span class="tech-tag">hCaptcha</span>
+        <span class="tech-tag">VPS (Ubuntu 24)</span>
+      </div>
+    </div>
+
+    <!-- ARCHITECTURE -->
+    <div class="section reveal">
+      <div class="section-title">Architecture decisions</div>
+      <div class="feature-list">
+        <div class="feature-item"><div class="feature-dot"></div><div class="feature-text"><strong>Database schema</strong> — designed 12 models covering users, jobs, bids, messages, reviews, boosts, banners, and portfolio items. Added composite indexes on category, status, and boostedUntil for query performance</div></div>
+        <div class="feature-item"><div class="feature-dot"></div><div class="feature-text"><strong>Authentication</strong> — NextAuth.js with custom JWT callbacks supporting session updates without re-login. Email verification with expiring tokens. Spam protection: 50-account limit per IP over 7 days</div></div>
+        <div class="feature-item"><div class="feature-dot"></div><div class="feature-text"><strong>Boost & prioritisation system</strong> — boostedUntil fields on Job and Profile models, automatic priority ordering via Prisma, fair rotation among boosted items for equal top-position exposure</div></div>
+        <div class="feature-item"><div class="feature-dot"></div><div class="feature-text"><strong>Infrastructure</strong> — Docker Compose with persistent volumes, automated PostgreSQL backups (pg_dump, 7-day rotation), Nginx reverse proxy with SSL, Cloudflare for CDN and DDoS protection</div></div>
+        <div class="feature-item"><div class="feature-dot"></div><div class="feature-text"><strong>Performance</strong> — reduced Docker build cache from 84GB to 33GB (freed 51GB) through automated cleanup configuration. 99.9% uptime on single VPS</div></div>
+      </div>
+    </div>
+
+    <!-- MONETISATION -->
+    <div class="section reveal">
+      <div class="section-title">Monetisation</div>
+      <p>Designed two revenue streams built into the product from day one. Researched and compared local payment providers — MAIB eCommerce, Victoriabank, PayPal Business, Paddle, Stripe — and selected PayPal for its coverage of the Moldovan market without requiring a business entity.</p>
+      <div class="mono-grid">
+        <div class="mono-card">
+          <div class="mono-price">5€/mo</div>
+          <div class="mono-name">PRO Subscription</div>
+          <div class="mono-desc">Priority in search, unlimited job posts, image attachments, profile analytics, PRO badge across all cards and profiles. Automatic deactivation via cron on expiry.</div>
+        </div>
+        <div class="mono-card">
+          <div class="mono-price">2–5€</div>
+          <div class="mono-name">Boost (Jobs & Profiles)</div>
+          <div class="mono-desc">One-time payment for 7 or 14-day top placement. Fair rotation among boosted items. Automatic expiry. Available for both job posts and freelancer profiles.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- KEY FEATURES -->
+    <div class="section reveal">
+      <div class="section-title">Key product features</div>
+      <div class="feature-list">
+        <div class="feature-item"><div class="feature-dot"></div><div class="feature-text"><strong>Job system</strong> — creation, moderation, status flow (Open → In Progress → Completed), filtering across 13 categories, budget range, sorting, pagination, full-text search</div></div>
+        <div class="feature-item"><div class="feature-dot"></div><div class="feature-text"><strong>Bid system</strong> — submit with price and message, client acceptance, automatic assignee designation, bilateral status tracking</div></div>
+        <div class="feature-item"><div class="feature-dot"></div><div class="feature-text"><strong>Real-time messenger</strong> — chat between users tied to specific jobs, active job display in chat header</div></div>
+        <div class="feature-item"><div class="feature-dot"></div><div class="feature-text"><strong>Freelancer profiles</strong> — portfolio with images, skills, hourly rate, categories, ratings, profile view counter, PRO analytics dashboard</div></div>
+        <div class="feature-item"><div class="feature-dot"></div><div class="feature-text"><strong>Review system</strong> — bilateral (client ↔ freelancer), only after bid acceptance, protected against manipulation</div></div>
+        <div class="feature-item"><div class="feature-dot"></div><div class="feature-text"><strong>Bilingual UI</strong> — full RU/RO interface with cookie-based switching, instant server component refresh via router.refresh() without page reload</div></div>
+      </div>
+    </div>
+
+    <!-- SEO & RESULTS -->
+    <div class="section reveal">
+      <div class="section-title">Results</div>
+      <div class="feature-list">
+        <div class="feature-item"><div class="feature-dot"></div><div class="feature-text"><strong>50+ registered users</strong> acquired organically — no paid advertising</div></div>
+        <div class="feature-item"><div class="feature-dot"></div><div class="feature-text"><strong>30+ jobs posted</strong> across 13 IT categories</div></div>
+        <div class="feature-item"><div class="feature-dot"></div><div class="feature-text"><strong>First page on Google</strong> for "фриланс Молдова" — through technical SEO: dynamic sitemap.xml, generateMetadata() on all pages, canonical URLs, Open Graph tags</div></div>
+        <div class="feature-item"><div class="feature-dot"></div><div class="feature-text"><strong>99.9% uptime</strong> on self-managed VPS infrastructure with automated monitoring and backups</div></div>
+        <div class="feature-item"><div class="feature-dot"></div><div class="feature-text"><strong>Live payment system</strong> — PayPal integration with webhook handling, supporting Visa/Mastercard without requiring a PayPal account</div></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- BACK -->
+  <div class="back-section reveal">
+    <a href="index.html" class="btn-back">← Back to portfolio</a>
+    <a href="https://freelance-moldova.com" target="_blank" rel="noopener" class="btn-live">Visit freelance-moldova.com ↗</a>
+  </div>
+</div>
+
+<div class="cursor-glow" id="cursor-glow"></div>
+
+<script>
+  const obs = new IntersectionObserver((entries) => {
+    let d = 0;
+    entries.forEach(e => {
+      if (e.isIntersecting) { setTimeout(() => e.target.classList.add('in'), d); d += 60; obs.unobserve(e.target); }
+    });
+  }, { threshold: 0.06 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  const glow = document.getElementById('cursor-glow');
+  let cx=0,cy=0,tx=0,ty=0;
+  document.addEventListener('mousemove', e => { tx=e.clientX; ty=e.clientY; });
+  (function loop(){ cx+=(tx-cx)*0.15; cy+=(ty-cy)*0.15; glow.style.left=cx+'px'; glow.style.top=cy+'px'; requestAnimationFrame(loop); })();
+  document.querySelectorAll('a,button').forEach(el => {
+    el.addEventListener('mouseenter', () => glow.classList.add('big'));
+    el.addEventListener('mouseleave', () => glow.classList.remove('big'));
+  });
+</script>
+</body>
+</html>
